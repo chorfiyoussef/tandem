@@ -38,4 +38,5 @@ fi
 docker compose ps
 REMOTE
 
-echo "✓ Deployed. Open https://\$(grep ^APP_DOMAIN= "$ROOT/infra/.env" 2>/dev/null | cut -d= -f2 || echo '<APP_DOMAIN>')"
+APP_DOMAIN="$(grep '^APP_DOMAIN=' "$ROOT/infra/.env" 2>/dev/null | cut -d= -f2)"
+echo "✓ Backend deployed. API: https://$(grep '^API_DOMAIN=' "$ROOT/infra/.env" 2>/dev/null | cut -d= -f2) · App: https://${APP_DOMAIN:-<APP_DOMAIN>}"
