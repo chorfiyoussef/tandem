@@ -6,7 +6,7 @@
 
 <p align="center">
   Free, open source project management for small teams.<br />
-  Spaces, lists, tasks and a calm interface. Self-hosted on your own server, built on open-source Supabase.
+  Spaces, lists, tasks, boards and calendars. Self-hosted on your own server, built on open-source Supabase.
 </p>
 
 <p align="center">
@@ -14,11 +14,10 @@
   <a href="https://github.com/chorfiyoussef/tandem/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/chorfiyoussef/tandem/actions/workflows/ci.yml/badge.svg" /></a>
 </p>
 
-![Tandem list view: tasks as cards grouped by status, each group tinted with its colour](docs/screenshots/list.jpg)
+![Tandem list view](docs/screenshots/list.jpg)
 
 Tandem is the 20% of a tool like ClickUp that a team actually uses, with none
-of the noise. One flat hierarchy, one place for what's yours today, and an
-interface that stays out of the way.
+of the noise. One flat hierarchy and one place for what's yours today.
 
 ```
 Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
@@ -26,10 +25,10 @@ Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 
 ## Why Tandem
 
-- **Calm by design.** Cool off-white canvas, system font, hairlines instead of shadows, pastel tints for metadata. Exactly two loud colours: blue for the primary action, red for destructive ones.
+- **Yours.** Runs on a single server you control. Your data is in a Postgres you can query. No seats, no plans, no vendor.
 - **Everything is inline.** Change status, assignee, due date, priority, category or tags right where you see them. No edit mode, no save button.
-- **Yours.** Runs on a single VM you control. Your data is in a Postgres you can query. No seats, no plans, no vendor.
 - **Small enough to understand.** A Next.js app, a tiny API, and a set of SQL migrations. You can read the whole thing in an afternoon.
+- **Built for agents too.** `CLAUDE.md` describes the codebase for AI coding tools, and the prompt below lets Claude Code set Tandem up for you.
 
 ## Features
 
@@ -44,15 +43,14 @@ Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 | **Search and shortcuts** | `⌘K` palette, `C` for a new task, `G H` / `G I` to jump around. |
 | **Spaces** | Their own statuses and colours; private spaces; pinned lists. |
 | **Members and invites** | Owner, admin, member, guest. Invite links work with or without email. |
-| **Appearance** | Light and dark, works on phones. |
 
 <table>
   <tr>
-    <td><img src="docs/screenshots/board.jpg" alt="Board view with tinted columns" /></td>
-    <td><img src="docs/screenshots/task.jpg" alt="Task panel with subtasks, checklist and comments" /></td>
+    <td><img src="docs/screenshots/board.jpg" alt="Board view" /></td>
+    <td><img src="docs/screenshots/task.jpg" alt="Task panel" /></td>
   </tr>
   <tr>
-    <td><img src="docs/screenshots/home.jpg" alt="Home: my tasks grouped by due date" /></td>
+    <td><img src="docs/screenshots/home.jpg" alt="Home" /></td>
     <td></td>
   </tr>
 </table>
@@ -70,6 +68,10 @@ Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 Everything the browser does goes straight to Supabase (PostgREST, Auth,
 Realtime, Storage) and is protected by row-level security. The API is only
 used for privileged operations.
+
+`CLAUDE.md` at the root is the project brief for AI coding agents: commands,
+conventions, and the gotchas we hit. Claude Code reads it automatically; other
+tools can be pointed at it.
 
 ## Local development
 
@@ -106,16 +108,21 @@ Local mail (invites, password resets) lands in Mailpit: http://127.0.0.1:54324.
 
 ## Deploying
 
-The frontend runs on **Cloudflare Workers**, built automatically from this
-repo. Supabase and the Tandem API run on **one Hetzner VM**. Three hostnames:
+Two pieces: the **frontend** on Cloudflare Workers, built automatically from
+your fork, and the **backend** (Supabase + the Tandem API) on one Linux
+server from any provider. A 2 vCPU / 4 GB box is enough for a small team.
+Three hostnames:
 
 | Hostname | Where | What |
 | --- | --- | --- |
 | `APP_DOMAIN`, e.g. `tandem.example.com` | Cloudflare | the Next.js app |
-| `API_DOMAIN`, e.g. `api.tandem.example.com` | Hetzner (Caddy) | the Tandem API |
-| `SUPABASE_DOMAIN`, e.g. `supabase.tandem.example.com` | Hetzner (Caddy) | Supabase API + Studio |
+| `API_DOMAIN`, e.g. `api.tandem.example.com` | your server (Caddy) | the Tandem API |
+| `SUPABASE_DOMAIN`, e.g. `supabase.tandem.example.com` | your server (Caddy) | Supabase API + Studio |
 
-### 1. Backend on Hetzner
+Prefer to skip Cloudflare? The whole thing, frontend included, can run on the
+server: see "Self-hosting the frontend" below.
+
+### 1. Backend on your server
 
 ```bash
 # On the server (Ubuntu 22.04/24.04), once:
@@ -131,9 +138,11 @@ scp .env root@<ip>:/opt/tandem/infra/.env       # edit SMTP_* first if you want 
 ./infra/scripts/deploy.sh root@<ip>
 ```
 
-Point the `API_DOMAIN` and `SUPABASE_DOMAIN` A records at the VM. Caddy
+Point the `API_DOMAIN` and `SUPABASE_DOMAIN` A records at the server. Caddy
 obtains certificates on first request. `deploy.sh` rsyncs the repo, builds
-the API image, starts Supabase, and applies any new migrations.
+the API image, starts Supabase, and applies any new migrations. The scripts
+target Ubuntu 22.04/24.04 and are tested on Hetzner, but nothing in them is
+provider-specific.
 
 ### 2. Frontend on Cloudflare (auto-deploys from git)
 
@@ -160,11 +169,48 @@ That's it: `git push` = deploy.
 To deploy from your laptop instead: `cd apps/web && pnpm run deploy:cf`
 (needs `wrangler login`).
 
-### Self-hosting the frontend on the VM instead
+### Self-hosting the frontend
 
-Possible, if you'd rather not use Cloudflare: point `APP_DOMAIN` at the VM and
-run `CADDYFILE=Caddyfile.with-web docker compose --profile web up -d --build`
-in `/opt/tandem/infra`. See [`infra/README.md`](infra/README.md).
+If you'd rather not use Cloudflare: point `APP_DOMAIN` at the server and run
+`CADDYFILE=Caddyfile.with-web docker compose --profile web up -d --build` in
+`/opt/tandem/infra`. See [`infra/README.md`](infra/README.md).
+
+## Set it up with Claude Code
+
+Tandem is written to be operated by an AI agent as much as by a person. If
+you use [Claude Code](https://claude.com/claude-code), paste this prompt and
+fill in the blanks; it will run Tandem locally, then deploy it and tell you
+which DNS records to create:
+
+```text
+Set up Tandem (https://github.com/chorfiyoussef/tandem) for my team.
+
+1. Clone the repo and read README.md, CLAUDE.md and infra/README.md before doing anything.
+2. Run it locally first (pnpm install, pnpm db:start, pnpm dev) and confirm the
+   setup screen loads at http://localhost:3000.
+3. Deploy it:
+   - Backend on my Linux server, reachable as `ssh <user>@<host>`. Use
+     infra/scripts/bootstrap-server.sh, then generate infra/.env with
+     infra/scripts/generate-env.mjs for these hostnames:
+     app <tandem.example.com>, api <api.tandem.example.com>,
+     supabase <supabase.tandem.example.com>, certificate email <you@example.com>.
+     Deploy with infra/scripts/deploy.sh.
+   - Frontend on Cloudflare Workers (`pnpm run deploy:cf` in apps/web), then
+     explain how to connect the repo in the Cloudflare dashboard so every push
+     deploys automatically.
+4. Tell me which DNS records to create and wait for my confirmation before
+   starting Caddy, so certificates are only requested once DNS resolves.
+5. Finish by giving me the app URL, where the Studio credentials are, and
+   anything left for me to do. Ask before any irreversible step.
+```
+
+Only want to try it? A shorter one:
+
+```text
+Clone https://github.com/chorfiyoussef/tandem, run it locally following
+README.md (pnpm install, pnpm db:start, pnpm dev), open http://localhost:3000
+and walk me through creating the first workspace.
+```
 
 ## How access works
 

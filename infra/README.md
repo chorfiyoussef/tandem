@@ -1,7 +1,7 @@
 # Tandem infrastructure
 
-The backend (Supabase + the Tandem API) runs on one Hetzner VM with Docker
-Compose; the web app is built and deployed by Cloudflare from git (see the
+The backend (Supabase + the Tandem API) runs on one Linux server with Docker
+Compose (any provider; the scripts assume Ubuntu 22.04/24.04); the web app is built and deployed by Cloudflare from git (see the
 root README, "Frontend on Cloudflare"). This directory holds the compose
 file, Caddy config, the Supabase init files, and the scripts.
 
@@ -18,7 +18,7 @@ infra/
 │   ├── storage/         Uploaded files (bind mount; back this up)
 │   └── db/data/         Postgres data (created on first start; back this up)
 ├── scripts/
-│   ├── bootstrap-server.sh  Fresh Ubuntu → Docker + firewall + /opt/tandem
+│   ├── bootstrap-server.sh  Fresh Ubuntu server → Docker + firewall + /opt/tandem
 │   ├── generate-env.mjs     Fresh secrets + signed anon/service JWTs → .env
 │   ├── deploy.sh            rsync + build + up + migrate, from your laptop
 │   ├── migrate.sh           Applies ../supabase/migrations/*.sql once each
@@ -29,16 +29,16 @@ infra/
 
 ## Sizing
 
-| Team | Hetzner type | Notes |
+| Team | Server size | Notes |
 | --- | --- | --- |
-| up to ~15 people | CX22 (2 vCPU, 4 GB) + 2 GB swap | bootstrap-server.sh adds the swap |
-| up to ~50 people | CX32 (4 vCPU, 8 GB) | comfortable |
+| up to ~15 people | 2 vCPU, 4 GB RAM + 2 GB swap | bootstrap-server.sh adds the swap |
+| up to ~50 people | 4 vCPU, 8 GB RAM | comfortable |
 
 Disk: the Supabase images are ~3 GB; data grows with attachments.
 
 ## First deploy
 
-1. Create the VM (Ubuntu 24.04), add your SSH key, point `API_DOMAIN` and
+1. Create a server (Ubuntu 24.04) at any provider, add your SSH key, point `API_DOMAIN` and
    `SUPABASE_DOMAIN` A records at it. (`APP_DOMAIN` points at Cloudflare.)
 2. `ssh root@<ip> 'bash -s' < infra/scripts/bootstrap-server.sh`
 3. `cd infra && node scripts/generate-env.mjs --app <app-domain> --api <api-domain> --supabase <supabase-domain> --email <acme-email>`

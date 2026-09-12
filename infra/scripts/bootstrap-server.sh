@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time setup for a fresh Ubuntu 22.04/24.04 Hetzner VM. Run as root:
+# One-time setup for a fresh Ubuntu 22.04/24.04 server (any provider). Run as root:
 #   curl -fsSL <raw-url>/bootstrap-server.sh | bash
 # or copy it over and run it. Installs Docker, opens ports 22/80/443, and
 # prepares /opt/tandem for deploys.
@@ -32,7 +32,7 @@ ufw --force enable
 ufw default deny incoming
 ufw default allow outgoing
 
-# Swap helps the smaller Hetzner boxes (Postgres + Realtime + Node).
+# Swap helps smaller servers (Postgres + Realtime + Node).
 if [ ! -f /swapfile ] && [ "$(free -m | awk '/^Mem:/{print $2}')" -lt 8000 ]; then
   fallocate -l 2G /swapfile
   chmod 600 /swapfile

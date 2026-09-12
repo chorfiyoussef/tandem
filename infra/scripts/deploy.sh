@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy from your machine to the Hetzner VM.
+# Deploy from your machine to your server.
 #   ./infra/scripts/deploy.sh root@1.2.3.4            # full deploy (build + migrate)
 #   ./infra/scripts/deploy.sh root@1.2.3.4 --no-build # restart with existing images
 #
