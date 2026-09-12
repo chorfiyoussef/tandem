@@ -42,4 +42,5 @@ if [ ! -f /swapfile ] && [ "$(free -m | awk '/^Mem:/{print $2}')" -lt 8000 ]; th
 fi
 
 mkdir -p /opt/tandem
-echo "Server ready. Deploy with: ./infra/scripts/deploy.sh root@$(curl -s -4 ifconfig.me || echo <server-ip>)"
+IP="$(curl -s -4 ifconfig.me || true)"
+echo "Server ready. Deploy with: ./infra/scripts/deploy.sh root@${IP:-<server-ip>}"
