@@ -2,7 +2,7 @@
 /**
  * Creates infra/.env from infra/.env.example with fresh secrets.
  *
- *   node scripts/generate-env.mjs --app tandem.example.com --supabase supabase.tandem.example.com --email you@example.com
+ *   node scripts/generate-env.mjs --app tandem.example.com --api api.tandem.example.com --supabase supabase.tandem.example.com --email you@example.com
  *
  * Re-running never overwrites an existing .env unless --force is passed.
  */
@@ -43,6 +43,7 @@ const serviceKey = signJwt({ role: "service_role", iss: "supabase", iat, exp }, 
 
 const values = {
   APP_DOMAIN: typeof args.app === "string" ? args.app : undefined,
+  API_DOMAIN: typeof args.api === "string" ? args.api : undefined,
   SUPABASE_DOMAIN: typeof args.supabase === "string" ? args.supabase : undefined,
   ACME_EMAIL: typeof args.email === "string" ? args.email : undefined,
   POSTGRES_PASSWORD: password(),
@@ -79,7 +80,8 @@ for (const [key, value] of Object.entries(values)) {
 writeFileSync(envPath, out, { mode: 0o600 });
 
 console.log(`Wrote ${envPath}`);
-if (!values.APP_DOMAIN || !values.SUPABASE_DOMAIN || !values.ACME_EMAIL) {
-  console.log("Now edit it and set APP_DOMAIN, SUPABASE_DOMAIN, ACME_EMAIL and the four URLs derived from them (and SMTP_* if you want email).");
+if (!values.APP_DOMAIN || !values.API_DOMAIN || !values.SUPABASE_DOMAIN || !values.ACME_EMAIL) {
+  console.log("Now edit it and set APP_DOMAIN, API_DOMAIN, SUPABASE_DOMAIN, ACME_EMAIL and the four URLs derived from them (and SMTP_* if you want email).");
 }
+console.log(`Cloudflare build variables for the web app:\n  NEXT_PUBLIC_SUPABASE_URL=${values.SUPABASE_PUBLIC_URL ?? "https://<SUPABASE_DOMAIN>"}\n  NEXT_PUBLIC_SUPABASE_ANON_KEY=${values.ANON_KEY}\n  NEXT_PUBLIC_API_URL=https://${values.API_DOMAIN ?? "<API_DOMAIN>"}`);
 console.log(`Studio login: ${/^DASHBOARD_USERNAME=(.*)$/m.exec(out)?.[1]} / ${values.DASHBOARD_PASSWORD}`);

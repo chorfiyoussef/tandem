@@ -2,23 +2,13 @@
 	email {$ACME_EMAIL}
 }
 
-# The Tandem app. /api/* goes to the Hono API on the same origin, so the
-# browser never needs CORS for it.
-{$APP_DOMAIN} {
+# The Tandem API. The web app itself is served by Cloudflare (see README).
+{$API_DOMAIN} {
 	encode zstd gzip
-
-	handle_path /api/* {
-		reverse_proxy api:4000
-	}
-
-	handle {
-		reverse_proxy web:3000
-	}
-
+	reverse_proxy api:4000
 	header {
 		Strict-Transport-Security "max-age=31536000; includeSubDomains"
 		X-Content-Type-Options "nosniff"
-		Referrer-Policy "strict-origin-when-cross-origin"
 		-Server
 	}
 }

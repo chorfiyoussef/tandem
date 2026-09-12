@@ -1,13 +1,18 @@
 # Tandem — production stack for a single Hetzner VM.
 #
-# Supabase (open source) services + the Tandem web app + the Tandem API,
-# fronted by Caddy for automatic HTTPS. Adapted from the official Supabase
-# self-hosting compose (docker/docker-compose.yml) with edge functions and the
-# connection pooler removed: Tandem talks to Postgres through PostgREST only.
+# Supabase (open source) services + the Tandem API, fronted by Caddy for
+# automatic HTTPS. Adapted from the official Supabase self-hosting compose
+# (docker/docker-compose.yml) with edge functions and the connection pooler
+# removed: Tandem talks to Postgres through PostgREST only.
 #
-#   cp .env.example .env && node scripts/generate-env.mjs   # fill secrets
+# The web app normally lives on Cloudflare Workers (see README.md, "Frontend on
+# Cloudflare"). To host it here instead, enable the `web` profile and the
+# Caddyfile that routes APP_DOMAIN:
+#   CADDYFILE=Caddyfile.with-web docker compose --profile web up -d --build
+#
+#   node scripts/generate-env.mjs ...   # fill secrets
 #   docker compose up -d --build
-#   ./scripts/migrate.sh                                    # apply supabase/migrations
+#   ./scripts/migrate.sh                # apply supabase/migrations
 
 name: tandem
 
@@ -25,28 +30,30 @@ services:
       - "443:443/udp"
     environment:
       APP_DOMAIN: ${APP_DOMAIN}
+      API_DOMAIN: ${API_DOMAIN}
       SUPABASE_DOMAIN: ${SUPABASE_DOMAIN}
       ACME_EMAIL: ${ACME_EMAIL}
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./${CADDYFILE:-Caddyfile}:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
       - caddy-config:/config
     depends_on:
-      - web
       - api
       - api-gw
 
   # ---------------------------------------------------------------------------
   # Tandem
   # ---------------------------------------------------------------------------
+  # Optional: self-host the web app instead of Cloudflare (profile "web").
   web:
+    profiles: ["web"]
     build:
       context: ..
       dockerfile: apps/web/Dockerfile
       args:
         NEXT_PUBLIC_SUPABASE_URL: https://${SUPABASE_DOMAIN}
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
-        NEXT_PUBLIC_API_URL: https://${APP_DOMAIN}/api
+        NEXT_PUBLIC_API_URL: https://${API_DOMAIN}
     container_name: tandem-web
     restart: unless-stopped
     environment:
@@ -55,7 +62,7 @@ services:
       HOSTNAME: 0.0.0.0
       NEXT_PUBLIC_SUPABASE_URL: https://${SUPABASE_DOMAIN}
       NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
-      NEXT_PUBLIC_API_URL: https://${APP_DOMAIN}/api
+      NEXT_PUBLIC_API_URL: https://${API_DOMAIN}
     depends_on:
       api-gw:
         condition: service_healthy

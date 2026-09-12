@@ -4,6 +4,8 @@ node_modules
 
 # builds
 .next
+.open-next
+.wrangler
 out
 dist
 build

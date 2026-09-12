@@ -70,37 +70,67 @@ pnpm typecheck && pnpm lint
 
 Local mail (invites, password resets) lands in Mailpit: http://127.0.0.1:54324.
 
-## Deploying to Hetzner
+## Deploying
 
-One VM (a CX32 / 4 GB is plenty for a team) running Docker Compose with:
-Postgres, Auth, PostgREST, Realtime, Storage, Studio, Envoy (the Supabase
-API gateway), the Tandem web app, the Tandem API and Caddy for HTTPS.
+The frontend runs on **Cloudflare Workers**, built automatically from this
+repo. Supabase and the Tandem API run on **one Hetzner VM**. Three hostnames:
 
-You need two DNS records pointing at the server: `APP_DOMAIN`
-(e.g. `tandem.example.com`) and `SUPABASE_DOMAIN`
-(e.g. `supabase.tandem.example.com`).
+| Hostname | Where | What |
+| --- | --- | --- |
+| `APP_DOMAIN`, e.g. `tandem.example.com` | Cloudflare | the Next.js app |
+| `API_DOMAIN`, e.g. `api.tandem.example.com` | Hetzner (Caddy) | the Tandem API |
+| `SUPABASE_DOMAIN`, e.g. `supabase.tandem.example.com` | Hetzner (Caddy) | Supabase API + Studio |
+
+### 1. Backend on Hetzner
 
 ```bash
 # On the server (Ubuntu 22.04/24.04), once:
-curl -fsSL https://raw.githubusercontent.com/<you>/<repo>/main/infra/scripts/bootstrap-server.sh | bash
+ssh root@<ip> 'bash -s' < infra/scripts/bootstrap-server.sh
 
 # On your machine, once: create the production env with fresh secrets and copy it up
 cd infra
-node scripts/generate-env.mjs --app tandem.example.com --supabase supabase.tandem.example.com --email you@example.com
-scp .env root@<server-ip>:/opt/tandem/infra/.env   # (edit SMTP_* first if you want email)
+node scripts/generate-env.mjs --app tandem.example.com --api api.tandem.example.com \
+  --supabase supabase.tandem.example.com --email you@example.com
+scp .env root@<ip>:/opt/tandem/infra/.env       # edit SMTP_* first if you want email
 
-# Every deploy:
-./infra/scripts/deploy.sh root@<server-ip>
+# Every backend deploy:
+./infra/scripts/deploy.sh root@<ip>
 ```
 
-`deploy.sh` rsyncs the repo, builds the images on the server, starts
-everything, and applies any new migrations. Open `https://tandem.example.com`
-and complete the first-run setup. Supabase Studio is at
-`https://supabase.tandem.example.com` behind the `DASHBOARD_USERNAME` /
-`DASHBOARD_PASSWORD` from `infra/.env`.
+Point the `API_DOMAIN` and `SUPABASE_DOMAIN` A records at the VM. Caddy
+obtains certificates on first request. `deploy.sh` rsyncs the repo, builds
+the API image, starts Supabase, and applies any new migrations.
 
-See [`infra/README.md`](infra/README.md) for backups, restores, updating
-Supabase images, and troubleshooting.
+### 2. Frontend on Cloudflare (auto-deploys from git)
+
+The web app is packaged for Workers with `@opennextjs/cloudflare`
+(`apps/web/wrangler.jsonc`, `apps/web/open-next.config.ts`). Connect the repo
+once and every push to `main` builds and deploys it; other branches get
+preview URLs.
+
+In the Cloudflare dashboard: **Workers & Pages → Create → Import a
+repository** → pick `tandem`, then:
+
+| Setting | Value |
+| --- | --- |
+| Project / Worker name | `tandem-web` (must match `name` in `wrangler.jsonc`) |
+| Root directory | `apps/web` |
+| Build command | `pnpm run build:cf` |
+| Deploy command | `pnpm exec opennextjs-cloudflare deploy` |
+| Build variables | `NEXT_PUBLIC_SUPABASE_URL=https://<SUPABASE_DOMAIN>`, `NEXT_PUBLIC_SUPABASE_ANON_KEY=<ANON_KEY from infra/.env>`, `NEXT_PUBLIC_API_URL=https://<API_DOMAIN>` |
+
+`generate-env.mjs` prints these three build variables for you. Then add
+`APP_DOMAIN` as a custom domain on the Worker (Settings → Domains & Routes).
+That's it: `git push` = deploy.
+
+To deploy from your laptop instead: `cd apps/web && pnpm run deploy:cf`
+(needs `wrangler login`).
+
+### Self-hosting the frontend on the VM instead
+
+Possible, if you'd rather not use Cloudflare: point `APP_DOMAIN` at the VM and
+run `CADDYFILE=Caddyfile.with-web docker compose --profile web up -d --build`
+in `/opt/tandem/infra`. See [`infra/README.md`](infra/README.md).
 
 ## How access works
 

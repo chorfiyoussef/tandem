@@ -1,13 +1,16 @@
 # Tandem infrastructure
 
-Production runs on one Hetzner VM with Docker Compose. This directory holds
-the compose file, Caddy config, the Supabase init files, and the scripts.
+The backend (Supabase + the Tandem API) runs on one Hetzner VM with Docker
+Compose; the web app is built and deployed by Cloudflare from git (see the
+root README, "Frontend on Cloudflare"). This directory holds the compose
+file, Caddy config, the Supabase init files, and the scripts.
 
 ```
 infra/
 ├── docker-compose.yml   Supabase (db, auth, rest, realtime, storage, imgproxy, meta, studio, envoy)
-│                        + tandem web + tandem api + caddy
-├── Caddyfile            HTTPS for APP_DOMAIN (app + /api) and SUPABASE_DOMAIN (Supabase + Studio)
+│                        + tandem api + caddy (+ tandem web behind the optional `web` profile)
+├── Caddyfile            HTTPS for API_DOMAIN (Tandem API) and SUPABASE_DOMAIN (Supabase + Studio)
+├── Caddyfile.with-web   Same, plus APP_DOMAIN → the self-hosted web container
 ├── .env.example         Every variable, documented. generate-env.mjs turns it into .env
 ├── volumes/
 │   ├── db/              Postgres init SQL from the official Supabase self-hosting repo
@@ -35,16 +38,17 @@ Disk: the Supabase images are ~3 GB; data grows with attachments.
 
 ## First deploy
 
-1. Create the VM (Ubuntu 24.04), add your SSH key, point `APP_DOMAIN` and
-   `SUPABASE_DOMAIN` A records at it.
+1. Create the VM (Ubuntu 24.04), add your SSH key, point `API_DOMAIN` and
+   `SUPABASE_DOMAIN` A records at it. (`APP_DOMAIN` points at Cloudflare.)
 2. `ssh root@<ip> 'bash -s' < infra/scripts/bootstrap-server.sh`
-3. `cd infra && node scripts/generate-env.mjs --app <app-domain> --supabase <supabase-domain> --email <acme-email>`
+3. `cd infra && node scripts/generate-env.mjs --app <app-domain> --api <api-domain> --supabase <supabase-domain> --email <acme-email>`
 4. Optional: edit `.env` and fill `SMTP_*` (any SMTP provider). Without SMTP,
    invite links are shown in the UI to copy, and password reset emails can't
    be sent.
 5. `scp infra/.env root@<ip>:/opt/tandem/infra/.env`
 6. `./infra/scripts/deploy.sh root@<ip>`
-7. Open `https://<app-domain>` → **Set up Tandem** → create the owner account.
+7. Connect the repo in Cloudflare (root README) with the build variables the
+   generator printed, then open `https://<app-domain>` → **Set up Tandem**.
 
 Caddy obtains certificates automatically on the first request; give DNS a
 few minutes to propagate before the first deploy.
@@ -52,7 +56,7 @@ few minutes to propagate before the first deploy.
 ## Day-to-day
 
 ```bash
-./infra/scripts/deploy.sh root@<ip>              # ship a new version (rebuilds images)
+./infra/scripts/deploy.sh root@<ip>              # ship a new API/Supabase version (the web app deploys itself from git)
 ./infra/scripts/deploy.sh root@<ip> --no-build   # just restart / apply migrations
 ssh root@<ip> 'cd /opt/tandem/infra && docker compose logs -f api web'
 ssh root@<ip> 'cd /opt/tandem/infra && docker compose ps'
@@ -72,7 +76,7 @@ rclone, or S3). Restore with `scripts/restore.sh <dump>`.
 ### Manually running the reminder job
 
 ```bash
-curl -X POST -H "X-Cron-Secret: $CRON_SECRET" https://<app-domain>/api/jobs/due-reminders
+curl -X POST -H "X-Cron-Secret: $CRON_SECRET" https://<api-domain>/jobs/due-reminders
 ```
 
 ### Updating Supabase
@@ -91,8 +95,10 @@ reachable only inside the Docker network. Studio is served by Envoy at
 
 ## Troubleshooting
 
-- **`web` unhealthy right after deploy**: it waits for Envoy; check
+- **`api` unhealthy right after deploy**: it waits for Envoy; check
   `docker compose logs api-gw studio`. Studio takes ~20 s to become healthy.
+- **Browser errors about CORS on the API**: `APP_URL` (derived from
+  `APP_DOMAIN`) must be exactly the origin the app is served from.
 - **Invite emails not arriving**: `docker compose logs api` shows SMTP errors.
   The UI always offers a copyable link as a fallback.
 - **Realtime not updating**: the `realtime` container must be able to reach
