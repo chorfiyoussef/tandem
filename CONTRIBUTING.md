@@ -7,8 +7,9 @@ calm and obvious to use.
 
 - Open an issue for anything bigger than a bug fix so we can agree on the
   shape first. Small fixes can go straight to a pull request.
-- Read `CLAUDE.md`: it is written for AI agents but it is also the shortest
-  description of the codebase conventions.
+- The "Conventions" and "Gotchas" sections below are the shortest description
+  of how the codebase works. They're written so an AI coding agent can follow
+  them too; feel free to hand this file to yours.
 
 ## Setting up
 
@@ -37,6 +38,32 @@ The first visit shows the setup screen; create an owner account there.
   (action blue, destructive red); everything else is grey or a pastel token.
 - Copy: sentence case, plain verbs, no marketing voice. Buttons say what
   they do ("Create workspace", not "Submit").
+
+## Gotchas
+
+- All data access from the browser goes through supabase-js with RLS. Only
+  the Hono API (`apps/api`) uses the service role, and only for setup,
+  invites and reminders. Add privileged operations there, not in Next.js
+  route handlers.
+- Query hooks live in `apps/web/src/lib/queries/*`; task mutations do
+  optimistic updates through `patchTaskEverywhere`. Realtime invalidation is
+  in `apps/web/src/lib/realtime.ts`.
+- Task rows and cards fetch with `TASK_SELECT` (`apps/web/src/lib/types.ts`).
+  If you add a relation, extend that string and the `TaskRow` type together.
+- PostgREST embeds must be disambiguated when a table has two foreign keys to
+  the same target (e.g. `profiles!task_assignees_user_id_fkey`), otherwise it
+  answers 300.
+- Icons come from `apps/web/src/components/icons.tsx` (Phosphor, aliased
+  under stable names). No star or sparkle glyphs; pins mark favourites.
+- Shadcn components live in `apps/web/src/components/ui` (radix-nova preset).
+  Add more with `pnpm dlx shadcn@latest add <name>` from `apps/web`.
+- Next.js 16: `proxy.ts` instead of middleware, async `params`, docs bundled
+  in `apps/web/node_modules/next/dist/docs/`.
+- Don't wrap pages that use `useSearchParams` in `<Suspense>`: the routes are
+  dynamic, and the boundary caused hydration mismatches when react-query data
+  arrived between hydration passes.
+- Cloudflare: `keep_names` is off in `wrangler.jsonc` because esbuild's helper
+  leaked into Next's inline scripts (`__name is not defined`).
 
 ## Pull requests
 

@@ -28,7 +28,7 @@ Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 - **Yours.** Runs on a single server you control. Your data is in a Postgres you can query. No seats, no plans, no vendor.
 - **Everything is inline.** Change status, assignee, due date, priority, category or tags right where you see them. No edit mode, no save button.
 - **Small enough to understand.** A Next.js app, a tiny API, and a set of SQL migrations. You can read the whole thing in an afternoon.
-- **Built for agents too.** `CLAUDE.md` describes the codebase for AI coding tools, and the prompt below lets Claude Code set Tandem up for you.
+- **Built for agents too.** The conventions in `CONTRIBUTING.md` are written to be followed by AI coding tools as well as people, and the prompt below lets Claude Code set Tandem up for you.
 
 ## Features
 
@@ -69,9 +69,8 @@ Everything the browser does goes straight to Supabase (PostgREST, Auth,
 Realtime, Storage) and is protected by row-level security. The API is only
 used for privileged operations.
 
-`CLAUDE.md` at the root is the project brief for AI coding agents: commands,
-conventions, and the gotchas we hit. Claude Code reads it automatically; other
-tools can be pointed at it.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) has the commands, conventions and the
+gotchas we hit. Point your AI coding tool at it too.
 
 ## Local development
 
@@ -185,7 +184,7 @@ which DNS records to create:
 ```text
 Set up Tandem (https://github.com/chorfiyoussef/tandem) for my team.
 
-1. Clone the repo and read README.md, CLAUDE.md and infra/README.md before doing anything.
+1. Clone the repo and read README.md, CONTRIBUTING.md and infra/README.md before doing anything.
 2. Run it locally first (pnpm install, pnpm db:start, pnpm dev) and confirm the
    setup screen loads at http://localhost:3000.
 3. Deploy it:

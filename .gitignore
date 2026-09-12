@@ -32,3 +32,7 @@ infra/.env
 .vscode/*
 !.vscode/extensions.json
 *.log
+
+# AI agent instructions and settings stay local
+**/CLAUDE.md
+**/.claude/
