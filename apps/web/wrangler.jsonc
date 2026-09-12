@@ -11,7 +11,10 @@
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "tandem-web" }],
   // Custom domain on the agaria.ai zone (Cloudflare creates the DNS record).
   "routes": [{ "pattern": "tandem.example.com", "custom_domain": true }],
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Next.js inlines a few functions as strings (e.g. the theme bootstrap script);
+  // esbuild's name-keeping helper would leak into them as `__name is not defined`.
+  "keep_names": false
   // Public config (NEXT_PUBLIC_*) is inlined at build time: set it as build
   // variables in the Cloudflare dashboard (Workers Builds → Settings) or in
   // .env.local when building locally.
