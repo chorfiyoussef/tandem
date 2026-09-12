@@ -9,6 +9,8 @@
     "binding": "ASSETS"
   },
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "tandem-web" }],
+  // Custom domain on the agaria.ai zone (Cloudflare creates the DNS record).
+  "routes": [{ "pattern": "tandem.example.com", "custom_domain": true }],
   "observability": { "enabled": true }
   // Public config (NEXT_PUBLIC_*) is inlined at build time: set it as build
   // variables in the Cloudflare dashboard (Workers Builds → Settings) or in
