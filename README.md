@@ -1,13 +1,61 @@
-# Tandem
+<p align="center">
+  <img src="apps/web/public/icon.svg" width="72" alt="Tandem" />
+</p>
 
-A calm, self-hosted task manager for small teams. Think of it as the 20% of
-ClickUp a team actually uses, with none of the noise: spaces, lists, tasks,
-subtasks, comments, a board, a calendar, and an inbox. Runs entirely on your
-own Hetzner box on top of open-source Supabase.
+<h1 align="center">Tandem</h1>
+
+<p align="center">
+  Free, open source project management for small teams.<br />
+  Spaces, lists, tasks and a calm interface. Self-hosted on your own server, built on open-source Supabase.
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
+  <a href="https://github.com/chorfiyoussef/tandem/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/chorfiyoussef/tandem/actions/workflows/ci.yml/badge.svg" /></a>
+</p>
+
+![Tandem list view: tasks as cards grouped by status, each group tinted with its colour](docs/screenshots/list.jpg)
+
+Tandem is the 20% of a tool like ClickUp that a team actually uses, with none
+of the noise. One flat hierarchy, one place for what's yours today, and an
+interface that stays out of the way.
 
 ```
 Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 ```
+
+## Why Tandem
+
+- **Calm by design.** Cool off-white canvas, system font, hairlines instead of shadows, pastel tints for metadata. Exactly two loud colours: blue for the primary action, red for destructive ones.
+- **Everything is inline.** Change status, assignee, due date, priority, category or tags right where you see them. No edit mode, no save button.
+- **Yours.** Runs on a single VM you control. Your data is in a Postgres you can query. No seats, no plans, no vendor.
+- **Small enough to understand.** A Next.js app, a tiny API, and a set of SQL migrations. You can read the whole thing in an afternoon.
+
+## Features
+
+| | |
+| --- | --- |
+| **Home** | Everything assigned to you, grouped by Overdue, Today, Tomorrow, This week, Later. |
+| **List, Board, Calendar** | Grouped by status or category, drag to reorder or move. A calendar you can drag tasks around on. |
+| **Task panel** | Title, status, assignees, priority, due date, category, tags; rich description; subtasks; checklist; attachments; comments with @mentions; activity log. |
+| **Categories and tags** | One category per task for classification (Bug, Feature…), free-form tags for everything else. Filter and group by either. |
+| **Inbox** | Assignments, mentions, comments on tasks you watch, status changes, daily due reminders. |
+| **Realtime** | Every open view updates when a teammate changes something. |
+| **Search and shortcuts** | `⌘K` palette, `C` for a new task, `G H` / `G I` to jump around. |
+| **Spaces** | Their own statuses and colours; private spaces; pinned lists. |
+| **Members and invites** | Owner, admin, member, guest. Invite links work with or without email. |
+| **Appearance** | Light and dark, works on phones. |
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/board.jpg" alt="Board view with tinted columns" /></td>
+    <td><img src="docs/screenshots/task.jpg" alt="Task panel with subtasks, checklist and comments" /></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/home.jpg" alt="Home: my tasks grouped by due date" /></td>
+    <td></td>
+  </tr>
+</table>
 
 ## What's inside
 
@@ -22,20 +70,6 @@ Workspace  ›  Space  ›  List  ›  Task  ›  Subtask
 Everything the browser does goes straight to Supabase (PostgREST, Auth,
 Realtime, Storage) and is protected by row-level security. The API is only
 used for privileged operations.
-
-## Features
-
-- **Home**: everything assigned to you, grouped by Overdue / Today / Tomorrow / This week / Later.
-- **List view** grouped by status with inline add, drag to reorder or change status.
-- **Board** (kanban) and **Calendar** (drag to reschedule) views per list.
-- **Task panel**: title, status, assignees, priority, due date, category, tags, list; rich-text description; subtasks; checklist; attachments; comments with @mentions; full activity log.
-- **Categories**: one per task (Bug, Feature, Design…), workspace-wide, with colours. Filter any view by category, or group the list view by category and drag tasks between groups. **Tags** stay free-form and multi-valued.
-- **Inbox**: assignments, mentions, comments on tasks you watch, status changes, daily due reminders.
-- **Realtime**: every open view updates when a teammate changes something.
-- **Search / command palette** (`⌘K`), keyboard shortcuts (`C` new task, `G H` home, `G I` inbox).
-- **Spaces** with their own statuses and colours; private spaces; pinned lists in the sidebar.
-- **Members & invites** with owner / admin / member / guest roles; invite links work with or without email.
-- Light and dark appearance; works on phones. Icons are Phosphor, the web family closest to SF Symbols.
 
 ## Local development
 
@@ -153,3 +187,14 @@ in `/opt/tandem/infra`. See [`infra/README.md`](infra/README.md).
 | `G` then `H` / `I` / `S` | Go to Home / Inbox / Settings |
 | `⌘↵` | Send comment / create task |
 | `Esc` | Close panel or dialog |
+
+## Contributing
+
+Issues and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md)
+for setup and conventions, and [SECURITY.md](SECURITY.md) for reporting
+vulnerabilities privately.
+
+## License
+
+[MIT](LICENSE). Use it, change it, run it for your company; a link back is
+appreciated but not required.

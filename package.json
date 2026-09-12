@@ -2,9 +2,17 @@
   "name": "tandem",
   "private": true,
   "version": "0.1.0",
-  "description": "Tandem — a calm, self-hosted task manager for small teams.",
+  "description": "Tandem \u2014 free, open source project management for small teams.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chorfiyoussef/tandem"
+  },
+  "homepage": "https://github.com/chorfiyoussef/tandem",
   "packageManager": "pnpm@10.15.0",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "pnpm -r --parallel --filter ./apps/* dev",
     "dev:web": "pnpm --filter @tandem/web dev",
