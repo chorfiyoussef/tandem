@@ -10,6 +10,9 @@
    borders, and a family of pastel accents for metadata. Exactly two "hard"
    colours exist: --action (blue) for the primary action on a screen and
    --destructive (red) for irreversible or urgent things.
+   Task cards are filled with their status colour (.pastel-fill-*); chips on
+   them use .pastel-chip so a same-hue chip still reads. Group containers and
+   board columns stay neutral so the cards carry the colour.
    ------------------------------------------------------------------------ */
 
 @theme inline {
@@ -257,15 +260,15 @@
 
 @layer utilities {
   /* Pastel utilities: .pastel-sky sets bg + fg; .pastel-dot-sky paints a dot. */
-  .pastel-gray { background: var(--pastel-gray-bg); color: var(--pastel-gray-fg); }
-  .pastel-rose { background: var(--pastel-rose-bg); color: var(--pastel-rose-fg); }
-  .pastel-peach { background: var(--pastel-peach-bg); color: var(--pastel-peach-fg); }
-  .pastel-butter { background: var(--pastel-butter-bg); color: var(--pastel-butter-fg); }
-  .pastel-mint { background: var(--pastel-mint-bg); color: var(--pastel-mint-fg); }
-  .pastel-aqua { background: var(--pastel-aqua-bg); color: var(--pastel-aqua-fg); }
-  .pastel-sky { background: var(--pastel-sky-bg); color: var(--pastel-sky-fg); }
-  .pastel-lavender { background: var(--pastel-lavender-bg); color: var(--pastel-lavender-fg); }
-  .pastel-blush { background: var(--pastel-blush-bg); color: var(--pastel-blush-fg); }
+  .pastel-gray { --pastel-bg: var(--pastel-gray-bg); background: var(--pastel-bg); color: var(--pastel-gray-fg); }
+  .pastel-rose { --pastel-bg: var(--pastel-rose-bg); background: var(--pastel-bg); color: var(--pastel-rose-fg); }
+  .pastel-peach { --pastel-bg: var(--pastel-peach-bg); background: var(--pastel-bg); color: var(--pastel-peach-fg); }
+  .pastel-butter { --pastel-bg: var(--pastel-butter-bg); background: var(--pastel-bg); color: var(--pastel-butter-fg); }
+  .pastel-mint { --pastel-bg: var(--pastel-mint-bg); background: var(--pastel-bg); color: var(--pastel-mint-fg); }
+  .pastel-aqua { --pastel-bg: var(--pastel-aqua-bg); background: var(--pastel-bg); color: var(--pastel-aqua-fg); }
+  .pastel-sky { --pastel-bg: var(--pastel-sky-bg); background: var(--pastel-bg); color: var(--pastel-sky-fg); }
+  .pastel-lavender { --pastel-bg: var(--pastel-lavender-bg); background: var(--pastel-bg); color: var(--pastel-lavender-fg); }
+  .pastel-blush { --pastel-bg: var(--pastel-blush-bg); background: var(--pastel-bg); color: var(--pastel-blush-fg); }
 
   .pastel-dot-gray { background: var(--pastel-gray-dot); }
   .pastel-dot-rose { background: var(--pastel-rose-dot); }
@@ -286,6 +289,21 @@
   .pastel-text-sky { color: var(--pastel-sky-fg); }
   .pastel-text-lavender { color: var(--pastel-lavender-fg); }
   .pastel-text-blush { color: var(--pastel-blush-fg); }
+
+  /* Chips on a tinted card sit on a paler version of their colour, so a chip
+     in the same hue as the card stays visible. */
+  [data-tinted] .pastel-chip { background: color-mix(in oklch, var(--pastel-bg) 45%, var(--surface)); }
+
+  /* Task cards: the card itself takes its status colour (text stays ink) */
+  .pastel-fill-gray { background: var(--pastel-gray-bg); }
+  .pastel-fill-rose { background: var(--pastel-rose-bg); }
+  .pastel-fill-peach { background: var(--pastel-peach-bg); }
+  .pastel-fill-butter { background: var(--pastel-butter-bg); }
+  .pastel-fill-mint { background: var(--pastel-mint-bg); }
+  .pastel-fill-aqua { background: var(--pastel-aqua-bg); }
+  .pastel-fill-sky { background: var(--pastel-sky-bg); }
+  .pastel-fill-lavender { background: var(--pastel-lavender-bg); }
+  .pastel-fill-blush { background: var(--pastel-blush-bg); }
 
   /* Group containers: a light wash of the group's colour */
   .pastel-wash-gray { background: color-mix(in oklch, var(--pastel-gray-bg) 55%, var(--surface)); }

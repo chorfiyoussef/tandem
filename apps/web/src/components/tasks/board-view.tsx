@@ -176,7 +176,7 @@ function Column({
       </header>
       <div
         ref={setNodeRef}
-        className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto rounded-xl p-2 transition-shadow scrollbar-thin", `pastel-wash-${asPastel(color)}`, isOver && "ring-2 ring-action/30")}
+        className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-muted/60 p-2 transition-shadow scrollbar-thin", isOver && "ring-2 ring-action/30")}
       >
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
           {ids.map((tid) => {
@@ -201,7 +201,9 @@ function SortableCard({ task }: { task: TaskRowType }) {
 
 export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }) {
   const { workspace } = useWorkspace();
+  const { byId } = useSpaceStatuses(task.list_id);
   const openTask = useOpenTask();
+  const status = task.status_id ? byId.get(task.status_id) : undefined;
   const done = !!task.completed_at;
   const tags = task.task_tags.map((t) => t.tags).filter((t): t is NonNullable<typeof t> => !!t);
   const subTotal = task.subtasks?.length ?? 0;
@@ -218,9 +220,11 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
       onClick={() => openTask(task.id)}
       onKeyDown={(e) => e.key === "Enter" && openTask(task.id)}
       className={cn(
-        "flex cursor-default flex-col gap-2 rounded-lg bg-surface p-3 text-[13px] shadow-card outline-none transition-shadow hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
+        "flex cursor-default flex-col gap-2 rounded-lg p-3 text-[13px] shadow-card outline-none transition-shadow hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
+        status ? `pastel-fill-${asPastel(status.color)}` : "bg-surface",
         overlay && "w-[256px] rotate-1 shadow-float",
       )}
+      data-tinted={status ? "" : undefined}
     >
       <div className="flex items-start gap-2">
         <span className={cn("min-w-0 flex-1 leading-snug", done && "text-ink-3 line-through")}>{task.title}</span>

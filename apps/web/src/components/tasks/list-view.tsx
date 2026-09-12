@@ -26,7 +26,7 @@ import { useMoveTask } from "@/lib/queries/tasks";
 import { useUi, type ListGroupBy } from "@/stores/ui";
 import { TaskRow } from "./task-row";
 import { StatusDot } from "./status-dot";
-import { ColorDot, asPastel } from "@/components/common/pastel";
+import { ColorDot } from "@/components/common/pastel";
 import { InlineTaskComposer } from "./inline-task-composer";
 import { NO_STATUS, findContainer, groupTasks, positionAt } from "./dnd";
 import { Button } from "@/components/ui/button";
@@ -178,7 +178,7 @@ export function ListView({ tasks, listId, groupBy = "status" }: { tasks: TaskRow
         ) : null}
       </div>
       <DragOverlay dropAnimation={{ duration: 160, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }}>
-        {activeTask ? <TaskRow task={activeTask} overlay className="w-[min(720px,90vw)]" /> : null}
+        {activeTask ? <TaskRow task={activeTask} overlay showStatus={groupBy === "category"} className="w-[min(720px,90vw)]" /> : null}
       </DragOverlay>
     </DndContext>
   );
@@ -219,7 +219,7 @@ function Group({
   return (
     <section
       ref={setNodeRef}
-      className={cn("mx-3 mb-3 flex flex-col rounded-xl p-2 transition-shadow", `pastel-wash-${asPastel(color)}`, isOver && "ring-2 ring-action/30")}
+      className={cn("mx-3 mb-3 flex flex-col rounded-xl bg-muted/60 p-2 transition-shadow", isOver && "ring-2 ring-action/30")}
     >
       <header className="group/head flex h-8 items-center gap-2 px-1.5">
         <button
@@ -261,7 +261,7 @@ function Group({
           <div className="flex min-h-2 flex-col gap-1.5">
             {ids.map((tid) => {
               const t = tasksById.get(tid);
-              return t ? <SortableRow key={tid} task={t} /> : null;
+              return t ? <SortableRow key={tid} task={t} showStatus={groupBy === "category"} /> : null;
             })}
           </div>
         </SortableContext>
@@ -283,8 +283,8 @@ function Group({
   );
 }
 
-function SortableRow({ task }: { task: TaskRowType }) {
+function SortableRow({ task, showStatus }: { task: TaskRowType; showStatus?: boolean }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: task.id });
   const style: React.CSSProperties = { transform: CSS.Translate.toString(transform), transition };
-  return <TaskRow ref={setNodeRef} task={task} style={style} dragging={isDragging} dragHandleProps={{ ...attributes, ...listeners } as React.HTMLAttributes<HTMLButtonElement>} />;
+  return <TaskRow ref={setNodeRef} task={task} showStatus={showStatus} style={style} dragging={isDragging} dragHandleProps={{ ...attributes, ...listeners } as React.HTMLAttributes<HTMLButtonElement>} />;
 }
