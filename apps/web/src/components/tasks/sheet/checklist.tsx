@@ -84,9 +84,11 @@ export function Checklist({ task }: { task: TaskRow }) {
             />
           </div>
         ) : canEdit ? (
-          <button type="button" onClick={() => setAdding(true)} className="flex h-7 items-center gap-2 px-2 text-[12px] text-ink-3 hover:text-ink-2">
-            <PlusIcon className="size-3.5" /> Add item
-          </button>
+          <div className="px-2 pt-1">
+            <button type="button" onClick={() => setAdding(true)} className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted/70 px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-muted hover:text-ink dark:bg-muted/50">
+              <PlusIcon className="size-3.5" /> Add item
+            </button>
+          </div>
         ) : null}
       </div>
     </section>

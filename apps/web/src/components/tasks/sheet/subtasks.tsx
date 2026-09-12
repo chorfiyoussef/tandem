@@ -62,7 +62,7 @@ export function Subtasks({ task }: { task: TaskRow }) {
           </div>
         ))}
         {canEdit ? (
-          <InlineTaskComposer listId={task.list_id} parentId={task.id} statusId={null} label="Add subtask" autoOpen={adding} onClose={() => setAdding(false)} className="pl-2" key={adding ? "open" : "closed"} />
+          <InlineTaskComposer listId={task.list_id} parentId={task.id} statusId={null} label="Add subtask" autoOpen={adding} onClose={() => setAdding(false)} className="pl-2 pr-0" key={adding ? "open" : "closed"} />
         ) : null}
       </div>
     </section>

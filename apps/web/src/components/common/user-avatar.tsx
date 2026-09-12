@@ -13,22 +13,26 @@ function hueFor(id: string): (typeof PALETTE)[number] {
   return PALETTE[h % PALETTE.length];
 }
 
-export function UserAvatar({
-  user,
-  className,
-  size = "sm",
-}: {
-  user: ProfileLite | null | undefined;
-  className?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
-}) {
-  const sizes = { xs: "size-4 text-[8px]", sm: "size-5 text-[9px]", md: "size-6 text-[10px]", lg: "size-8 text-xs", xl: "size-14 text-lg" };
+/** Small monograms show one letter; only the large profile avatar shows two. */
+const SIZES = {
+  xs: { box: "size-3.5", text: "text-[7px]", letters: 1 },
+  sm: { box: "size-4", text: "text-[8px]", letters: 1 },
+  md: { box: "size-5", text: "text-[9px]", letters: 1 },
+  lg: { box: "size-6", text: "text-[10px]", letters: 1 },
+  xl: { box: "size-14", text: "text-lg", letters: 2 },
+} as const;
+
+export type AvatarSize = keyof typeof SIZES;
+
+export function UserAvatar({ user, className, size = "sm" }: { user: ProfileLite | null | undefined; className?: string; size?: AvatarSize }) {
+  const s = SIZES[size];
   const tone = user ? hueFor(user.id) : "gray";
+  const letters = initials(user?.full_name, user?.email);
   return (
-    <Avatar className={cn(sizes[size], "shrink-0", className)}>
+    <Avatar className={cn(s.box, "shrink-0", className)}>
       {user?.avatar_url ? <AvatarImage src={user.avatar_url} alt={user.full_name ?? ""} /> : null}
-      <AvatarFallback className={cn("font-medium", `pastel-${tone}`)}>
-        {initials(user?.full_name, user?.email)}
+      <AvatarFallback className={cn("font-semibold leading-none", s.text, `pastel-${tone}`)}>
+        {s.letters === 1 ? letters.charAt(0) : letters}
       </AvatarFallback>
     </Avatar>
   );

@@ -83,14 +83,10 @@ export function SidebarSpaces({ onNavigate }: { onNavigate?: () => void }) {
               />
             ))}
             {spaces && spaces.length === 0 && canEdit ? (
-              <button
-                type="button"
-                onClick={() => setSpaceDialog({ open: true })}
-                className="flex h-7 items-center gap-2 rounded-md px-2 text-ink-3 hover:bg-sidebar-accent/70 hover:text-ink"
-              >
-                <PlusIcon className="size-[15px]" />
+              <Button variant="ghost" size="sm" className="mx-2 mt-1 justify-start text-ink-2" onClick={() => setSpaceDialog({ open: true })}>
+                <PlusIcon />
                 New space
-              </button>
+              </Button>
             ) : null}
           </div>
         )}

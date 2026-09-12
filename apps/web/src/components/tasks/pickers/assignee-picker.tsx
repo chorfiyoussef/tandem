@@ -17,12 +17,12 @@ export function AssigneeAvatars({ users, size = "sm", max = 3 }: { users: (Profi
   const shown = list.slice(0, max);
   const rest = list.length - shown.length;
   return (
-    <AvatarGroup className="-space-x-1.5">
+    <AvatarGroup className="-space-x-1">
       {shown.map((u) => (
-        <UserAvatar key={u.id} user={u} size={size} className="ring-2 ring-surface" />
+        <UserAvatar key={u.id} user={u} size={size} className="ring-[1.5px] ring-surface" />
       ))}
       {rest > 0 ? (
-        <span className={cn("flex items-center justify-center rounded-full bg-muted text-[9px] font-medium text-ink-2 ring-2 ring-surface", size === "xs" ? "size-4" : size === "sm" ? "size-5" : "size-6")}>
+        <span className={cn("flex items-center justify-center rounded-full bg-muted font-medium text-ink-2 ring-2 ring-surface", size === "xs" ? "size-3.5 text-[7px]" : size === "sm" ? "size-4 text-[8px]" : "size-5 text-[9px]")}>
           +{rest}
         </span>
       ) : null}

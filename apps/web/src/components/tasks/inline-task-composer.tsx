@@ -55,17 +55,16 @@ export function InlineTaskComposer({
 
   if (!open) {
     return (
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={cn(
-          "flex h-8 w-full items-center gap-2 pl-[3.25rem] pr-3 text-[13px] text-ink-3 transition-colors hover:text-ink-2",
-          className,
-        )}
-      >
-        <PlusIcon className="size-3.5" />
-        {label}
-      </button>
+      <div className={cn("py-1 pl-[3.25rem] pr-3", className)}>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted/70 px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-muted hover:text-ink dark:bg-muted/50"
+        >
+          <PlusIcon className="size-3.5" />
+          {label}
+        </button>
+      </div>
     );
   }
 
