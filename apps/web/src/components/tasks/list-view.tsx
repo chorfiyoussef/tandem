@@ -26,7 +26,7 @@ import { useMoveTask } from "@/lib/queries/tasks";
 import { useUi, type ListGroupBy } from "@/stores/ui";
 import { TaskRow } from "./task-row";
 import { StatusDot } from "./status-dot";
-import { ColorDot } from "@/components/common/pastel";
+import { ColorDot, asPastel } from "@/components/common/pastel";
 import { InlineTaskComposer } from "./inline-task-composer";
 import { NO_STATUS, findContainer, groupTasks, positionAt } from "./dnd";
 import { Button } from "@/components/ui/button";
@@ -154,7 +154,7 @@ export function ListView({ tasks, listId, groupBy = "status" }: { tasks: TaskRow
         setDragState(null);
       }}
     >
-      <div className="flex flex-col pb-24">
+      <div className="flex flex-col pb-24 pt-3">
         {groupKeys.map((key) => {
           const def = groups.find((g) => g.id === key);
           return (
@@ -217,8 +217,11 @@ function Group({
   const canCompose = canEdit && (groupBy === "category" || !isNone);
 
   return (
-    <section ref={setNodeRef} className={cn("flex flex-col transition-colors", isOver && "bg-action-soft/30")}>
-      <header className="group/head sticky top-0 z-10 flex h-9 items-center gap-2 bg-surface/90 px-3 backdrop-blur-sm supports-backdrop-filter:bg-surface/80">
+    <section
+      ref={setNodeRef}
+      className={cn("mx-3 mb-3 flex flex-col rounded-xl p-2 transition-shadow", `pastel-wash-${asPastel(color)}`, isOver && "ring-2 ring-action/30")}
+    >
+      <header className="group/head flex h-8 items-center gap-2 px-1.5">
         <button
           type="button"
           onClick={() => toggleGroup(key)}
@@ -255,7 +258,7 @@ function Group({
 
       {!collapsed ? (
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
-          <div className="flex min-h-2 flex-col">
+          <div className="flex min-h-2 flex-col gap-1.5">
             {ids.map((tid) => {
               const t = tasksById.get(tid);
               return t ? <SortableRow key={tid} task={t} /> : null;
@@ -271,10 +274,11 @@ function Group({
           categoryId={groupBy === "category" && !isNone ? id : null}
           autoOpen={composing}
           onClose={() => setComposing(false)}
+          tone="surface"
+          className="pt-1.5"
           key={composing ? "open" : "closed"}
         />
       ) : null}
-      <div className="h-3" />
     </section>
   );
 }

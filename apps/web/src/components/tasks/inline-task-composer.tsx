@@ -15,6 +15,7 @@ export function InlineTaskComposer({
   className,
   label = "Add task",
   autoOpen = false,
+  tone = "muted",
   onClose,
 }: {
   listId: string;
@@ -24,6 +25,8 @@ export function InlineTaskComposer({
   className?: string;
   label?: string;
   autoOpen?: boolean;
+  /** "surface" for pills that sit on a tinted group background. */
+  tone?: "muted" | "surface";
   onClose?: () => void;
 }) {
   const [open, setOpen] = useState(autoOpen);
@@ -55,11 +58,14 @@ export function InlineTaskComposer({
 
   if (!open) {
     return (
-      <div className={cn("py-1 pl-[3.25rem] pr-3", className)}>
+      <div className={cn("py-1", className)}>
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted/70 px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-muted hover:text-ink dark:bg-muted/50"
+          className={cn(
+            "inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:text-ink",
+            tone === "surface" ? "bg-surface/80 shadow-card hover:bg-surface" : "bg-muted/70 hover:bg-muted dark:bg-muted/50",
+          )}
         >
           <PlusIcon className="size-3.5" />
           {label}
@@ -69,7 +75,7 @@ export function InlineTaskComposer({
   }
 
   return (
-    <div className={cn("flex h-9 items-center gap-2 pl-[3.25rem] pr-3 hairline-b", className)}>
+    <div className={cn("flex h-10 items-center gap-2 rounded-lg bg-surface pl-3 pr-3 shadow-card ring-2 ring-ring/30", tone === "muted" && "h-9 rounded-md shadow-none ring-0 hairline-b pl-1", className)}>
       <span className="size-4 shrink-0 rounded-full" style={{ boxShadow: "inset 0 0 0 1.5px var(--hairline-strong)" }} aria-hidden />
       <input
         ref={ref}

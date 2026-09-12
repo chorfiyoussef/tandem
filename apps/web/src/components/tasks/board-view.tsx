@@ -31,6 +31,7 @@ import { DueLabel } from "./due-label";
 import { PriorityIcon } from "./priority-icon";
 import { AssigneeLabel } from "./pickers/assignee-picker";
 import { NO_STATUS, findContainer, groupByStatus, positionAt } from "./dnd";
+import { asPastel } from "@/components/common/pastel";
 import { Button } from "@/components/ui/button";
 import type { TaskRow as TaskRowType } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -174,7 +175,7 @@ function Column({
       </header>
       <div
         ref={setNodeRef}
-        className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-canvas p-2 transition-colors scrollbar-thin", isOver && "bg-action-soft/40")}
+        className={cn("flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto rounded-xl p-2 transition-shadow scrollbar-thin", `pastel-wash-${asPastel(color)}`, isOver && "ring-2 ring-action/30")}
       >
         <SortableContext items={ids} strategy={verticalListSortingStrategy}>
           {ids.map((tid) => {

@@ -287,6 +287,17 @@
   .pastel-text-lavender { color: var(--pastel-lavender-fg); }
   .pastel-text-blush { color: var(--pastel-blush-fg); }
 
+  /* Group containers: a light wash of the group's colour */
+  .pastel-wash-gray { background: color-mix(in oklch, var(--pastel-gray-bg) 55%, var(--surface)); }
+  .pastel-wash-rose { background: color-mix(in oklch, var(--pastel-rose-bg) 55%, var(--surface)); }
+  .pastel-wash-peach { background: color-mix(in oklch, var(--pastel-peach-bg) 55%, var(--surface)); }
+  .pastel-wash-butter { background: color-mix(in oklch, var(--pastel-butter-bg) 55%, var(--surface)); }
+  .pastel-wash-mint { background: color-mix(in oklch, var(--pastel-mint-bg) 55%, var(--surface)); }
+  .pastel-wash-aqua { background: color-mix(in oklch, var(--pastel-aqua-bg) 55%, var(--surface)); }
+  .pastel-wash-sky { background: color-mix(in oklch, var(--pastel-sky-bg) 55%, var(--surface)); }
+  .pastel-wash-lavender { background: color-mix(in oklch, var(--pastel-lavender-bg) 55%, var(--surface)); }
+  .pastel-wash-blush { background: color-mix(in oklch, var(--pastel-blush-bg) 55%, var(--surface)); }
+
   .hairline-b { box-shadow: inset 0 -1px 0 var(--hairline); }
   .hairline-t { box-shadow: inset 0 1px 0 var(--hairline); }
   .hairline-r { box-shadow: inset -1px 0 0 var(--hairline); }

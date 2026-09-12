@@ -103,9 +103,9 @@ export function HomePage() {
                     <h3 className={cn("text-[13px] font-semibold", b.tone === "overdue" && "text-destructive", b.key === "done" && "text-ink-2")}>{b.title}</h3>
                     <span className="tabular text-[12px] text-ink-3">{b.tasks.length}</span>
                   </header>
-                  <div className="flex flex-col">
+                  <div className="flex flex-col gap-1.5 px-3">
                     {b.tasks.map((t) => (
-                      <TaskRow key={t.id} task={t} showStatus listName={listName(t.list_id)} className="rounded-lg hairline-b" />
+                      <TaskRow key={t.id} task={t} showStatus listName={listName(t.list_id)} />
                     ))}
                   </div>
                 </section>
