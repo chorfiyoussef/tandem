@@ -18,7 +18,8 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { PlusIcon, MessageSquareIcon, CheckSquareIcon } from "@/components/icons";
+import { PlusIcon, MessageSquareIcon, CheckSquareIcon, RepeatIcon } from "@/components/icons";
+import { parseRecurrence, recurrenceShort } from "@/lib/recurrence";
 import { useWorkspace } from "@/components/workspace-provider";
 import { useSpaceStatuses } from "@/hooks/use-space-statuses";
 import { useMoveTask } from "@/lib/queries/tasks";
@@ -208,6 +209,7 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
   const comments = task.comments?.[0]?.count ?? 0;
   const checkTotal = task.checklist_items?.length ?? 0;
   const checkDone = task.checklist_items?.filter((c) => c.done).length ?? 0;
+  const recurrence = parseRecurrence(task.recurrence);
 
   return (
     <div
@@ -251,6 +253,12 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
           <span className="inline-flex items-center gap-0.5 tabular">
             <MessageSquareIcon className="size-3" />
             {comments}
+          </span>
+        ) : null}
+        {recurrence ? (
+          <span className="inline-flex items-center gap-0.5" title="Repeats">
+            <RepeatIcon className="size-3" />
+            {recurrenceShort(recurrence)}
           </span>
         ) : null}
         <span className="ml-auto flex min-w-0 items-center gap-2">

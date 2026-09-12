@@ -7,6 +7,7 @@ import { DueDatePicker } from "../pickers/due-date-picker";
 import { TagPicker } from "../pickers/tag-picker";
 import { ListPicker } from "../pickers/list-picker";
 import { CategoryPicker } from "../pickers/category-picker";
+import { RecurrencePicker } from "../pickers/recurrence-picker";
 import type { TaskRow } from "@/lib/types";
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
@@ -32,6 +33,9 @@ export function TaskProperties({ task, disabled }: { task: TaskRow; disabled?: b
       </Row>
       <Row label="Due date">
         <DueDatePicker task={task} disabled={disabled} />
+      </Row>
+      <Row label="Repeat">
+        <RecurrencePicker task={task} disabled={disabled} />
       </Row>
       <Row label="Category">
         <CategoryPicker task={task} disabled={disabled} />

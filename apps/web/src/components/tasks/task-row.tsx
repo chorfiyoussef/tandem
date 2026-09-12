@@ -1,7 +1,8 @@
 "use client";
 
 import { forwardRef } from "react";
-import { GripVerticalIcon, MessageSquareIcon, CheckSquareIcon, PaperclipIcon, CornerDownRightIcon, CalendarIcon, UserPlusIcon } from "@/components/icons";
+import { GripVerticalIcon, MessageSquareIcon, CheckSquareIcon, PaperclipIcon, CornerDownRightIcon, CalendarIcon, UserPlusIcon, RepeatIcon } from "@/components/icons";
+import { parseRecurrence, recurrenceShort } from "@/lib/recurrence";
 import { useWorkspace } from "@/components/workspace-provider";
 import { CompleteCheck } from "./complete-check";
 import { TagChip } from "./tag-chip";
@@ -53,6 +54,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
   const attachments = task.attachments?.[0]?.count ?? 0;
   const tags = task.task_tags.map((t) => t.tags).filter((t): t is NonNullable<typeof t> => !!t);
   const hasAssignees = task.task_assignees.length > 0;
+  const recurrence = parseRecurrence(task.recurrence);
 
   return (
     <div
@@ -99,6 +101,20 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
 
         <span className={cn("min-w-0 flex-1 truncate font-medium", done && "font-normal text-ink-3 line-through decoration-hairline-strong")}>{task.title}</span>
 
+        {showStatus && status ? (
+          <StatusPicker
+            task={task}
+            listId={task.list_id}
+            disabled={!canEdit}
+            trigger={
+              <button type="button" className={cn("flex h-5 shrink-0 items-center gap-1.5 rounded-md px-1.5 text-[11px] font-medium", `pastel-${status.color}`)} onClick={(e) => e.stopPropagation()}>
+                <StatusDot color={status.color} category={status.category} size={9} />
+                {status.name}
+              </button>
+            }
+          />
+        ) : null}
+
         <PriorityPicker
           task={task}
           disabled={!canEdit}
@@ -117,19 +133,6 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
 
       {/* Line 2: where it lives, who, when */}
       <div className="flex min-h-6 items-center gap-1.5 pl-[calc(1rem+0.5rem+1rem+0.5rem)] text-[12px] text-ink-2">
-        {showStatus && status ? (
-          <StatusPicker
-            task={task}
-            listId={task.list_id}
-            disabled={!canEdit}
-            trigger={
-              <button type="button" className={cn("flex h-5 items-center gap-1.5 rounded-md px-1.5 text-[11px] font-medium", `pastel-${status.color}`)} onClick={(e) => e.stopPropagation()}>
-                <StatusDot color={status.color} category={status.category} size={9} />
-                {status.name}
-              </button>
-            }
-          />
-        ) : null}
         {task.categories ? <CategoryChip category={task.categories} /> : null}
         {tags.slice(0, 3).map((t) => (
           <TagChip key={t.id} name={t.name} color={t.color} />
@@ -138,6 +141,12 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
         {listName ? <span className="max-w-32 truncate text-ink-3">{listName}</span> : null}
 
         <span className="ml-auto flex min-w-0 shrink-0 items-center gap-2.5">
+          {recurrence ? (
+            <span className="inline-flex items-center gap-1 text-[11px] text-ink-3" title="Repeats">
+              <RepeatIcon className="size-3" />
+              {recurrenceShort(recurrence)}
+            </span>
+          ) : null}
           {subTotal > 0 ? (
             <span className="tabular text-[11px] text-ink-3" title="Subtasks">
               {subDone}/{subTotal}

@@ -19,6 +19,8 @@ import { PriorityPicker } from "./pickers/priority-picker";
 import { DueDatePicker } from "./pickers/due-date-picker";
 import { TagPicker } from "./pickers/tag-picker";
 import { CategoryPicker } from "./pickers/category-picker";
+import { RecurrencePicker } from "./pickers/recurrence-picker";
+import type { Recurrence } from "@/lib/recurrence";
 import type { Priority } from "@tandem/shared";
 
 export function NewTaskDialog() {
@@ -53,6 +55,7 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
   const [dueDate, setDueDate] = useState<string | null>(defaults.dueDate ?? null);
   const [tagIds, setTagIds] = useState<string[]>([]);
   const [categoryId, setCategoryId] = useState<string | null>(defaults.categoryId ?? null);
+  const [recurrence, setRecurrence] = useState<Recurrence | null>(null);
   const [createMore, setCreateMore] = useState(false);
 
   const effectiveListId = listId ?? lists?.[0]?.id ?? null;
@@ -70,6 +73,7 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
         status_id: effectiveStatus,
         priority,
         category_id: categoryId,
+        recurrence,
         due_date: dueDate,
         description_text: description.trim() || null,
         description: description.trim() ? { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: description.trim() }] }] } : null,
@@ -129,6 +133,7 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
           <AssigneePicker value={assignees} onChange={setAssignees} />
           <PriorityPicker value={priority} onChange={setPriority} />
           <DueDatePicker value={dueDate} onChange={setDueDate} />
+          <RecurrencePicker value={recurrence} onChange={setRecurrence} />
           <CategoryPicker value={categoryId} onChange={setCategoryId} />
           <TagPicker value={tagIds} onChange={setTagIds} />
         </div>

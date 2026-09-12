@@ -14,7 +14,7 @@ import {
   CircleHalf, CircleNotch, Code, Coffee, Compass, Copy, DotsSixVertical, DotsThree, DownloadSimple, EnvelopeSimple, Eye,
   EyeSlash, File, Flask, Folder, GearSix, Globe, Hash, Heart, House, Image, Info, Kanban, Leaf, Lightbulb, Link,
   ListBullets, Lock, MagnifyingGlass, Megaphone, Monitor, Moon, Palette, Paperclip, PencilSimple, Plus, PushPin,
-  PushPinSlash, Rocket, Shapes, SidebarSimple, SignOut, SlidersHorizontal, SquaresFour, Stack, Sun, Tag, Target, Trash,
+  PushPinSlash, Repeat, Rocket, Shapes, SidebarSimple, SignOut, SlidersHorizontal, SquaresFour, Stack, Sun, Tag, Target, Trash,
   Tray, User, UserPlus, Users, Warning, Wrench, X, XCircle,
   type Icon, type IconProps, type IconWeight,
 } from "@phosphor-icons/react";
@@ -77,6 +77,7 @@ export const CalendarDaysIcon = CalendarDots;
 export const KanbanIcon = Kanban;
 export const TagIcon = Tag;
 export const ShapesIcon = Shapes;
+export const RepeatIcon = Repeat;
 export const CopyIcon = Copy;
 export const LinkIcon = Link;
 export const EyeIcon = Eye;

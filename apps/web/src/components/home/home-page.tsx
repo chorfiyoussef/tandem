@@ -55,7 +55,8 @@ export function HomePage() {
   }, [tasks]);
 
   const openCount = (tasks ?? []).filter((t) => !t.completed_at).length;
-  const listName = (id: string) => lists?.find((l) => l.id === id)?.name;
+  // Naming the list only helps when there is more than one to tell apart.
+  const listName = (id: string) => ((lists?.length ?? 0) > 1 ? lists?.find((l) => l.id === id)?.name : undefined);
 
   return (
     <>
