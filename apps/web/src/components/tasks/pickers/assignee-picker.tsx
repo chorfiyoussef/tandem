@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckIcon, UserPlusIcon } from "@/components/icons";
+import { CheckIcon, ChevronDownIcon, UserPlusIcon } from "@/components/icons";
 import { PickerShell, PickerItem, PickerTrigger } from "./picker-shell";
 import { UserAvatar, displayName } from "@/components/common/user-avatar";
 import { AvatarGroup } from "@/components/ui/avatar";
@@ -27,6 +27,34 @@ export function AssigneeAvatars({ users, size = "sm", max = 3 }: { users: (Profi
         </span>
       ) : null}
     </AvatarGroup>
+  );
+}
+
+function firstName(user: ProfileLite): string {
+  return displayName(user).split(/\s+/)[0];
+}
+
+/** Avatars plus a readable label: one name, or "3 people" with a caret that hints at the dropdown. */
+export function AssigneeLabel({
+  users,
+  size = "sm",
+  compact = false,
+  className,
+}: {
+  users: (ProfileLite | null)[];
+  size?: "xs" | "sm" | "md";
+  compact?: boolean;
+  className?: string;
+}) {
+  const list = users.filter((u): u is ProfileLite => !!u);
+  if (list.length === 0) return null;
+  const label = list.length === 1 ? (compact ? firstName(list[0]) : displayName(list[0])) : `${list.length} people`;
+  return (
+    <span className={cn("inline-flex min-w-0 items-center gap-1.5", className)}>
+      <AssigneeAvatars users={list} size={size} max={3} />
+      <span className={cn("truncate text-ink-2", size === "xs" ? "text-[11px]" : "text-[12px]")}>{label}</span>
+      {list.length > 1 ? <ChevronDownIcon className="size-2.5 shrink-0 text-ink-3" /> : null}
+    </span>
   );
 }
 

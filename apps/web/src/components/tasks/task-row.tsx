@@ -9,7 +9,7 @@ import { CategoryChip } from "./category-chip";
 import { DueLabel } from "./due-label";
 import { PriorityIcon } from "./priority-icon";
 import { StatusDot } from "./status-dot";
-import { AssigneeAvatars, AssigneePicker } from "./pickers/assignee-picker";
+import { AssigneeLabel, AssigneePicker } from "./pickers/assignee-picker";
 import { DueDatePicker } from "./pickers/due-date-picker";
 import { PriorityPicker } from "./pickers/priority-picker";
 import { StatusPicker } from "./pickers/status-picker";
@@ -147,15 +147,15 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
         </span>
       ) : null}
 
-      <span className="flex w-16 shrink-0 items-center justify-end">
+      <span className="flex max-w-44 shrink-0 items-center justify-end">
         <AssigneePicker
           task={task}
           compact
           disabled={!canEdit}
           trigger={
-            <button type="button" className={cn("flex h-7 items-center rounded-md px-1 hover:bg-muted", task.task_assignees.length === 0 && "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")} onClick={(e) => e.stopPropagation()} aria-label="Assign">
+            <button type="button" className={cn("flex h-7 min-w-0 items-center rounded-md px-1.5 hover:bg-muted", task.task_assignees.length === 0 && "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")} onClick={(e) => e.stopPropagation()} aria-label="Assign">
               {task.task_assignees.length > 0 ? (
-                <AssigneeAvatars users={task.task_assignees.map((a) => a.profiles)} />
+                <AssigneeLabel users={task.task_assignees.map((a) => a.profiles)} />
               ) : (
                 <span className="flex size-5 items-center justify-center rounded-full text-ink-3" style={{ boxShadow: "inset 0 0 0 1px var(--hairline-strong)" }}>
                   +

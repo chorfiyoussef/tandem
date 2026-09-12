@@ -29,7 +29,7 @@ import { TagChip } from "./tag-chip";
 import { CategoryChip } from "./category-chip";
 import { DueLabel } from "./due-label";
 import { PriorityIcon } from "./priority-icon";
-import { AssigneeAvatars } from "./pickers/assignee-picker";
+import { AssigneeLabel } from "./pickers/assignee-picker";
 import { NO_STATUS, findContainer, groupByStatus, positionAt } from "./dnd";
 import { Button } from "@/components/ui/button";
 import type { TaskRow as TaskRowType } from "@/lib/types";
@@ -252,9 +252,9 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
             {comments}
           </span>
         ) : null}
-        <span className="ml-auto flex items-center gap-2">
+        <span className="ml-auto flex min-w-0 items-center gap-2">
           <DueLabel date={task.due_date} completed={done} className="text-[11px]" />
-          <AssigneeAvatars users={task.task_assignees.map((a) => a.profiles)} size="xs" />
+          <AssigneeLabel users={task.task_assignees.map((a) => a.profiles)} size="xs" compact />
         </span>
       </div>
     </div>
