@@ -1,0 +1,11 @@
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+.git
+infra/volumes/db/data
+infra/volumes/storage
+infra/.env
+**/.env
+**/.env.local
+docs

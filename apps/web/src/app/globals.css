@@ -1,0 +1,334 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------------
+   Tandem theme
+   A calm, Apple-like surface: cool off-white canvas, near-black ink, hairline
+   borders, and a family of pastel accents for metadata. Exactly two "hard"
+   colours exist: --action (blue) for the primary action on a screen and
+   --destructive (red) for irreversible or urgent things.
+   ------------------------------------------------------------------------ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-action: var(--action);
+  --color-action-foreground: var(--action-foreground);
+  --color-action-soft: var(--action-soft);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --shadow-float: 0 0 0 1px oklch(0 0 0 / 4%), 0 8px 24px -4px oklch(0 0 0 / 12%), 0 2px 6px -2px oklch(0 0 0 / 6%);
+  --shadow-sheet: 0 0 0 1px oklch(0 0 0 / 5%), 0 24px 64px -12px oklch(0 0 0 / 18%);
+  --shadow-card: 0 0 0 1px oklch(0 0 0 / 5%), 0 1px 2px oklch(0 0 0 / 4%);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Surfaces */
+  --canvas: oklch(0.975 0.002 260);      /* window background */
+  --surface: oklch(1 0 0);               /* paper */
+  --background: var(--surface);
+  --foreground: var(--ink);
+
+  /* Ink */
+  --ink: oklch(0.21 0.01 260);           /* near-black, cool */
+  --ink-2: oklch(0.50 0.012 260);        /* secondary text */
+  --ink-3: oklch(0.68 0.01 260);         /* tertiary / placeholder */
+
+  /* Lines */
+  --hairline: oklch(0 0 0 / 7%);
+  --hairline-strong: oklch(0 0 0 / 12%);
+
+  /* Hard colours: use sparingly */
+  --action: oklch(0.58 0.2 258);         /* blue */
+  --action-foreground: oklch(1 0 0);
+  --action-soft: oklch(0.58 0.2 258 / 10%);
+  --destructive: oklch(0.6 0.22 27);     /* red */
+  --destructive-foreground: oklch(1 0 0);
+
+  /* shadcn mapping */
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--action);
+  --primary-foreground: var(--action-foreground);
+  --secondary: oklch(0.955 0.003 260);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.96 0.003 260);
+  --muted-foreground: var(--ink-2);
+  --accent: oklch(0.955 0.004 260);
+  --accent-foreground: var(--ink);
+  --border: var(--hairline);
+  --input: var(--hairline-strong);
+  --ring: var(--action);
+  --chart-1: var(--action);
+  --chart-2: oklch(0.72 0.11 160);
+  --chart-3: oklch(0.75 0.12 60);
+  --chart-4: oklch(0.7 0.12 300);
+  --chart-5: oklch(0.7 0.14 350);
+
+  --sidebar: oklch(0.965 0.003 260);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--action);
+  --sidebar-primary-foreground: var(--action-foreground);
+  --sidebar-accent: oklch(0 0 0 / 5%);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--action);
+
+  /* Pastel family: soft background, readable ink, and a solid dot */
+  --pastel-gray-bg: oklch(0.94 0.004 260);
+  --pastel-gray-fg: oklch(0.45 0.01 260);
+  --pastel-gray-dot: oklch(0.72 0.01 260);
+
+  --pastel-rose-bg: oklch(0.94 0.035 20);
+  --pastel-rose-fg: oklch(0.48 0.16 22);
+  --pastel-rose-dot: oklch(0.72 0.15 22);
+
+  --pastel-peach-bg: oklch(0.95 0.04 55);
+  --pastel-peach-fg: oklch(0.5 0.14 50);
+  --pastel-peach-dot: oklch(0.76 0.14 55);
+
+  --pastel-butter-bg: oklch(0.96 0.05 95);
+  --pastel-butter-fg: oklch(0.5 0.11 85);
+  --pastel-butter-dot: oklch(0.84 0.14 95);
+
+  --pastel-mint-bg: oklch(0.95 0.04 160);
+  --pastel-mint-fg: oklch(0.45 0.12 160);
+  --pastel-mint-dot: oklch(0.76 0.13 160);
+
+  --pastel-aqua-bg: oklch(0.95 0.035 205);
+  --pastel-aqua-fg: oklch(0.46 0.1 210);
+  --pastel-aqua-dot: oklch(0.76 0.11 205);
+
+  --pastel-sky-bg: oklch(0.945 0.03 245);
+  --pastel-sky-fg: oklch(0.48 0.15 250);
+  --pastel-sky-dot: oklch(0.74 0.13 245);
+
+  --pastel-lavender-bg: oklch(0.945 0.035 290);
+  --pastel-lavender-fg: oklch(0.48 0.16 290);
+  --pastel-lavender-dot: oklch(0.74 0.14 290);
+
+  --pastel-blush-bg: oklch(0.95 0.035 345);
+  --pastel-blush-fg: oklch(0.5 0.16 345);
+  --pastel-blush-dot: oklch(0.76 0.14 345);
+}
+
+.dark {
+  --canvas: oklch(0.19 0.006 260);
+  --surface: oklch(0.23 0.006 260);
+  --ink: oklch(0.95 0.005 260);
+  --ink-2: oklch(0.7 0.01 260);
+  --ink-3: oklch(0.52 0.01 260);
+  --hairline: oklch(1 0 0 / 8%);
+  --hairline-strong: oklch(1 0 0 / 14%);
+
+  --action: oklch(0.68 0.17 258);
+  --action-soft: oklch(0.68 0.17 258 / 16%);
+  --destructive: oklch(0.68 0.19 25);
+
+  --secondary: oklch(0.29 0.006 260);
+  --muted: oklch(0.28 0.006 260);
+  --accent: oklch(0.3 0.006 260);
+  --sidebar: oklch(0.205 0.006 260);
+  --sidebar-accent: oklch(1 0 0 / 7%);
+
+  --pastel-gray-bg: oklch(0.32 0.006 260);
+  --pastel-gray-fg: oklch(0.78 0.01 260);
+  --pastel-gray-dot: oklch(0.6 0.01 260);
+  --pastel-rose-bg: oklch(0.32 0.05 20);
+  --pastel-rose-fg: oklch(0.82 0.1 22);
+  --pastel-rose-dot: oklch(0.72 0.15 22);
+  --pastel-peach-bg: oklch(0.33 0.05 55);
+  --pastel-peach-fg: oklch(0.84 0.1 55);
+  --pastel-peach-dot: oklch(0.76 0.14 55);
+  --pastel-butter-bg: oklch(0.33 0.05 95);
+  --pastel-butter-fg: oklch(0.86 0.1 95);
+  --pastel-butter-dot: oklch(0.84 0.14 95);
+  --pastel-mint-bg: oklch(0.31 0.05 160);
+  --pastel-mint-fg: oklch(0.83 0.1 160);
+  --pastel-mint-dot: oklch(0.76 0.13 160);
+  --pastel-aqua-bg: oklch(0.31 0.045 205);
+  --pastel-aqua-fg: oklch(0.83 0.09 205);
+  --pastel-aqua-dot: oklch(0.76 0.11 205);
+  --pastel-sky-bg: oklch(0.31 0.05 245);
+  --pastel-sky-fg: oklch(0.82 0.1 245);
+  --pastel-sky-dot: oklch(0.74 0.13 245);
+  --pastel-lavender-bg: oklch(0.32 0.05 290);
+  --pastel-lavender-fg: oklch(0.84 0.1 290);
+  --pastel-lavender-dot: oklch(0.74 0.14 290);
+  --pastel-blush-bg: oklch(0.32 0.05 345);
+  --pastel-blush-fg: oklch(0.84 0.1 345);
+  --pastel-blush-dot: oklch(0.76 0.14 345);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01", "tnum";
+  }
+  body {
+    @apply bg-canvas text-ink;
+    font-size: 13.5px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--action-soft);
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--ink-3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Pastel utilities: .pastel-sky sets bg + fg; .pastel-dot-sky paints a dot. */
+  .pastel-gray { background: var(--pastel-gray-bg); color: var(--pastel-gray-fg); }
+  .pastel-rose { background: var(--pastel-rose-bg); color: var(--pastel-rose-fg); }
+  .pastel-peach { background: var(--pastel-peach-bg); color: var(--pastel-peach-fg); }
+  .pastel-butter { background: var(--pastel-butter-bg); color: var(--pastel-butter-fg); }
+  .pastel-mint { background: var(--pastel-mint-bg); color: var(--pastel-mint-fg); }
+  .pastel-aqua { background: var(--pastel-aqua-bg); color: var(--pastel-aqua-fg); }
+  .pastel-sky { background: var(--pastel-sky-bg); color: var(--pastel-sky-fg); }
+  .pastel-lavender { background: var(--pastel-lavender-bg); color: var(--pastel-lavender-fg); }
+  .pastel-blush { background: var(--pastel-blush-bg); color: var(--pastel-blush-fg); }
+
+  .pastel-dot-gray { background: var(--pastel-gray-dot); }
+  .pastel-dot-rose { background: var(--pastel-rose-dot); }
+  .pastel-dot-peach { background: var(--pastel-peach-dot); }
+  .pastel-dot-butter { background: var(--pastel-butter-dot); }
+  .pastel-dot-mint { background: var(--pastel-mint-dot); }
+  .pastel-dot-aqua { background: var(--pastel-aqua-dot); }
+  .pastel-dot-sky { background: var(--pastel-sky-dot); }
+  .pastel-dot-lavender { background: var(--pastel-lavender-dot); }
+  .pastel-dot-blush { background: var(--pastel-blush-dot); }
+
+  .pastel-text-gray { color: var(--pastel-gray-fg); }
+  .pastel-text-rose { color: var(--pastel-rose-fg); }
+  .pastel-text-peach { color: var(--pastel-peach-fg); }
+  .pastel-text-butter { color: var(--pastel-butter-fg); }
+  .pastel-text-mint { color: var(--pastel-mint-fg); }
+  .pastel-text-aqua { color: var(--pastel-aqua-fg); }
+  .pastel-text-sky { color: var(--pastel-sky-fg); }
+  .pastel-text-lavender { color: var(--pastel-lavender-fg); }
+  .pastel-text-blush { color: var(--pastel-blush-fg); }
+
+  .hairline-b { box-shadow: inset 0 -1px 0 var(--hairline); }
+  .hairline-t { box-shadow: inset 0 1px 0 var(--hairline); }
+  .hairline-r { box-shadow: inset -1px 0 0 var(--hairline); }
+  .hairline-l { box-shadow: inset 1px 0 0 var(--hairline); }
+  .shadow-float { box-shadow: var(--shadow-float); }
+  .shadow-sheet { box-shadow: var(--shadow-sheet); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .tabular { font-variant-numeric: tabular-nums; }
+  .scrollbar-thin { scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent; }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}
+
+/* Tiptap editor */
+.tiptap {
+  outline: none;
+  min-height: 1.5em;
+}
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--ink-3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+.tiptap :is(h1, h2, h3) { font-weight: 600; letter-spacing: -0.01em; margin: 0.9em 0 0.35em; }
+.tiptap h1 { font-size: 1.35em; }
+.tiptap h2 { font-size: 1.2em; }
+.tiptap h3 { font-size: 1.05em; }
+.tiptap p { margin: 0.25em 0; }
+.tiptap ul, .tiptap ol { padding-left: 1.4em; margin: 0.3em 0; }
+.tiptap ul { list-style: disc; }
+.tiptap ol { list-style: decimal; }
+.tiptap li > p { margin: 0.1em 0; }
+.tiptap code { background: var(--muted); border-radius: 4px; padding: 0.1em 0.35em; font-size: 0.92em; }
+.tiptap pre { background: var(--muted); border-radius: 8px; padding: 0.75em 1em; margin: 0.5em 0; overflow-x: auto; }
+.tiptap pre code { background: transparent; padding: 0; }
+.tiptap blockquote { border-left: 2px solid var(--hairline-strong); padding-left: 0.9em; color: var(--ink-2); margin: 0.5em 0; }
+.tiptap a { color: var(--action); text-decoration: underline; text-underline-offset: 2px; }
+.tiptap hr { border: 0; border-top: 1px solid var(--hairline); margin: 1em 0; }
+.tiptap ul[data-type="taskList"] { list-style: none; padding-left: 0.1em; }
+.tiptap ul[data-type="taskList"] li { display: flex; gap: 0.5em; align-items: flex-start; }
+.tiptap ul[data-type="taskList"] li > label { margin-top: 0.2em; }
+.tiptap ul[data-type="taskList"] li[data-checked="true"] > div { color: var(--ink-3); text-decoration: line-through; }
+.tiptap .mention { background: var(--action-soft); color: var(--action); border-radius: 6px; padding: 0.05em 0.3em; font-weight: 500; }

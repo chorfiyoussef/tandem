@@ -1,0 +1,9 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Native postinstall scripts we don't need (silences the pnpm warning)
+ignoredBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver

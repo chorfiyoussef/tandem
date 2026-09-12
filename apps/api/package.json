@@ -1,0 +1,28 @@
+{
+  "name": "@tandem/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.1",
+    "@supabase/supabase-js": "^2.116.0",
+    "@tandem/shared": "workspace:*",
+    "croner": "^10.0.1",
+    "hono": "^4.13.7",
+    "nodemailer": "^10.0.9",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/nodemailer": "^7",
+    "tsx": "^4",
+    "typescript": "^5.9.3",
+    "tsup": "^8"
+  }
+}

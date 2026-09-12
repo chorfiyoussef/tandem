@@ -1,0 +1,21 @@
+{
+  "name": "tandem",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Tandem — a calm, self-hosted task manager for small teams.",
+  "packageManager": "pnpm@10.15.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter ./apps/* dev",
+    "dev:web": "pnpm --filter @tandem/web dev",
+    "dev:api": "pnpm --filter @tandem/api dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:types": "supabase gen types typescript --local --schema public > packages/shared/src/database.types.ts",
+    "db:migration": "supabase migration new"
+  }
+}

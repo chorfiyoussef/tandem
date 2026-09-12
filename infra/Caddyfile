@@ -1,0 +1,32 @@
+{
+	email {$ACME_EMAIL}
+}
+
+# The Tandem app. /api/* goes to the Hono API on the same origin, so the
+# browser never needs CORS for it.
+{$APP_DOMAIN} {
+	encode zstd gzip
+
+	handle_path /api/* {
+		reverse_proxy api:4000
+	}
+
+	handle {
+		reverse_proxy web:3000
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# Supabase: /auth/v1, /rest/v1, /realtime/v1, /storage/v1 for the browser,
+# and Studio at / (protected by basic auth inside Envoy).
+{$SUPABASE_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy api-gw:8000
+	header -Server
+}
