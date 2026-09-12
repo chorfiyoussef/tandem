@@ -18,7 +18,7 @@ function layout(title: string, body: string, cta?: { label: string; url: string 
   return `<!doctype html><html><body style="margin:0;background:#f7f7f9;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',Inter,system-ui,sans-serif;color:#1d1d1f">
   <div style="max-width:480px;margin:40px auto;padding:32px;background:#fff;border-radius:16px;box-shadow:0 0 0 1px rgba(0,0,0,.05)">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px">
-      <span style="display:inline-block;width:20px;height:20px;border-radius:6px;background:#eef0ff"></span>
+      <span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#8b8cf0"></span><span style="display:inline-block;width:13px;height:13px;border-radius:50%;background:#7ccdb0;margin-left:-5px"></span>
       <strong style="font-size:15px;letter-spacing:-.01em">Tandem</strong>
     </div>
     <h1 style="font-size:18px;margin:0 0 8px;letter-spacing:-.01em">${escapeHtml(title)}</h1>
