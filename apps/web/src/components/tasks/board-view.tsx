@@ -166,8 +166,8 @@ function Column({
     <section className="flex h-full w-[272px] shrink-0 flex-col">
       <header className="flex h-8 items-center gap-2 px-1">
         <StatusDot color={color} category={category} />
-        <span className="text-[13px] font-medium">{name}</span>
-        <span className="tabular text-[12px] text-ink-3">{ids.length}</span>
+        <span className="text-[14px] font-medium">{name}</span>
+        <span className="tabular text-[13px] text-ink-3">{ids.length}</span>
         {onAdd ? (
           <Button variant="ghost" size="icon-xs" className="ml-auto text-ink-3" aria-label={`Add task to ${name}`} onClick={onAdd}>
             <PlusIcon />
@@ -184,7 +184,7 @@ function Column({
             return t ? <SortableCard key={tid} task={t} /> : null;
           })}
         </SortableContext>
-        {ids.length === 0 && !isOver ? <p className="py-6 text-center text-[12px] text-ink-3">Drop tasks here</p> : null}
+        {ids.length === 0 && !isOver ? <p className="py-6 text-center text-[13px] text-ink-3">Drop tasks here</p> : null}
       </div>
     </section>
   );
@@ -217,7 +217,7 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
       onClick={() => openTask(task.id)}
       onKeyDown={(e) => e.key === "Enter" && openTask(task.id)}
       className={cn(
-        "flex cursor-default flex-col gap-2 rounded-lg bg-surface p-3 text-[13px] shadow-card outline-none transition-shadow hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
+        "flex cursor-default flex-col gap-2 rounded-lg bg-surface p-3 text-[14px] shadow-card outline-none transition-shadow hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
         overlay && "w-[256px] rotate-1 shadow-float",
       )}
     >
@@ -233,7 +233,7 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
           ))}
         </div>
       ) : null}
-      <div className="flex items-center gap-2 text-[11px] text-ink-3">
+      <div className="flex items-center gap-2 text-[12px] text-ink-3">
         {subTotal > 0 ? (
           <span className="tabular">
             {subDone}/{subTotal}
@@ -258,7 +258,7 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
           </span>
         ) : null}
         <span className="ml-auto flex min-w-0 items-center gap-2">
-          <DueLabel date={task.due_date} completed={done} className="text-[11px]" />
+          <DueLabel date={task.due_date} completed={done} className="text-[12px]" />
           <AssigneeLabel users={task.task_assignees.map((a) => a.profiles)} size="xs" compact />
         </span>
       </div>

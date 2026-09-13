@@ -174,7 +174,7 @@ export function ListView({ tasks, listId, groupBy = "status" }: { tasks: TaskRow
           );
         })}
         {groupBy === "category" && groups.length === 0 ? (
-          <p className="px-4 py-3 text-[13px] text-ink-3">No categories yet. Create them from a task’s Category field or in Settings › Categories.</p>
+          <p className="px-4 py-3 text-[14px] text-ink-3">No categories yet. Create them from a task’s Category field or in Settings › Categories.</p>
         ) : null}
       </div>
       <DragOverlay dropAnimation={{ duration: 160, easing: "cubic-bezier(0.22, 1, 0.36, 1)" }}>
@@ -238,8 +238,8 @@ function Group({
         ) : (
           <ColorDot color={color} />
         )}
-        <span className={cn("text-[13px] font-medium", isNone ? "text-ink-2" : "text-ink")}>{name}</span>
-        <span className="tabular text-[12px] text-ink-3">{ids.length}</span>
+        <span className={cn("text-[14px] font-medium", isNone ? "text-ink-2" : "text-ink")}>{name}</span>
+        <span className="tabular text-[13px] text-ink-3">{ids.length}</span>
         {canCompose ? (
           <Button
             variant="ghost"

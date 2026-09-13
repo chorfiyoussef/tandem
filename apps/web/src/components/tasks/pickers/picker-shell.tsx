@@ -69,7 +69,7 @@ export function PickerTrigger({
     <button
       type="button"
       className={cn(
-        "flex h-7 min-w-0 max-w-full items-center gap-1.5 rounded-md px-1.5 text-left text-[13px] transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 aria-expanded:bg-muted",
+        "flex h-7 min-w-0 max-w-full items-center gap-1.5 rounded-md px-1.5 text-left text-[14px] transition-colors outline-none hover:bg-muted focus-visible:ring-3 focus-visible:ring-ring/40 aria-expanded:bg-muted",
         placeholder ? "text-ink-3" : "text-ink",
         className,
       )}

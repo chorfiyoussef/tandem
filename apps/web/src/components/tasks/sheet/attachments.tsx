@@ -67,10 +67,10 @@ export function Attachments({ task }: { task: TaskRow }) {
     >
       {list.length > 0 ? (
         <>
-          <h3 className="pb-1 text-[12px] font-medium text-ink-2">Attachments</h3>
+          <h3 className="pb-1 text-[13px] font-medium text-ink-2">Attachments</h3>
           <div className="flex flex-wrap gap-2">
             {list.map((a) => (
-              <div key={a.id} className="group/att flex h-9 max-w-full items-center gap-2 rounded-lg bg-muted/60 pl-2.5 pr-1.5 text-[12px]">
+              <div key={a.id} className="group/att flex h-9 max-w-full items-center gap-2 rounded-lg bg-muted/60 pl-2.5 pr-1.5 text-[13px]">
                 {a.mime_type?.startsWith("image/") ? <ImageIcon className="size-3.5 shrink-0 text-ink-3" /> : <FileIcon className="size-3.5 shrink-0 text-ink-3" />}
                 <button type="button" onClick={() => open(a)} className="max-w-48 truncate text-left hover:underline">
                   {a.file_name}
@@ -96,7 +96,7 @@ export function Attachments({ task }: { task: TaskRow }) {
             {upload.isPending ? <Spinner className="size-3.5" /> : <PaperclipIcon />}
             {upload.isPending ? "Uploading…" : list.length ? "Add file" : "Attach a file"}
           </Button>
-          <span className="text-[11px] text-ink-3">or drop files here</span>
+          <span className="text-[12px] text-ink-3">or drop files here</span>
         </div>
       ) : null}
     </section>

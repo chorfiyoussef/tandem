@@ -61,7 +61,7 @@ export function RecurrencePicker({
             apply({ every: n, unit: customUnit });
           }}
         >
-          <span className="text-[12px] text-ink-2">Every</span>
+          <span className="text-[13px] text-ink-2">Every</span>
           <Input type="number" min={1} max={365} value={customEvery} onChange={(e) => setCustomEvery(e.target.value)} className="h-7 w-14 px-1.5 text-center" aria-label="Interval" />
           <Select value={customUnit} onValueChange={(v) => setCustomUnit(v as RecurrenceUnit)}>
             <SelectTrigger size="sm" className="h-7 w-24" aria-label="Unit">

@@ -67,7 +67,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
         if (e.key === "Enter" && e.target === e.currentTarget) openTask(task.id);
       }}
       className={cn(
-        "group/row relative flex flex-col gap-1 rounded-lg bg-surface py-2 pl-1 pr-3 text-[13px] shadow-card outline-none transition-shadow",
+        "group/row relative flex flex-col gap-1 rounded-lg bg-surface py-2 pl-1 pr-3 text-[14px] shadow-card outline-none transition-shadow",
         "hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
         dragging && "opacity-30",
         overlay && "shadow-float",
@@ -103,7 +103,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
             listId={task.list_id}
             disabled={!canEdit}
             trigger={
-              <button type="button" className={cn("flex h-5 shrink-0 items-center gap-1.5 rounded-md px-1.5 text-[11px] font-medium", `pastel-${status.color}`)} onClick={(e) => e.stopPropagation()}>
+              <button type="button" className={cn("flex h-5 shrink-0 items-center gap-1.5 rounded-md px-1.5 text-[12px] font-medium", `pastel-${status.color}`)} onClick={(e) => e.stopPropagation()}>
                 <StatusDot color={status.color} category={status.category} size={9} />
                 {status.name}
               </button>
@@ -128,40 +128,40 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
       </div>
 
       {/* Line 2: where it lives, who, when */}
-      <div className="flex min-h-6 items-center gap-1.5 pl-[calc(1rem+0.5rem+1rem+0.5rem)] text-[12px] text-ink-2">
+      <div className="flex min-h-6 items-center gap-1.5 pl-[calc(1rem+0.5rem+1rem+0.5rem)] text-[13px] text-ink-2">
         {task.categories ? <CategoryChip category={task.categories} /> : null}
         {tags.slice(0, 3).map((t) => (
           <TagChip key={t.id} name={t.name} color={t.color} />
         ))}
-        {tags.length > 3 ? <span className="text-[11px] text-ink-3">+{tags.length - 3}</span> : null}
+        {tags.length > 3 ? <span className="text-[12px] text-ink-3">+{tags.length - 3}</span> : null}
         {listName ? <span className="max-w-32 truncate text-ink-3">{listName}</span> : null}
 
         <span className="ml-auto flex min-w-0 shrink-0 items-center gap-2.5">
           {recurrence ? (
-            <span className="inline-flex items-center gap-1 text-[11px] text-ink-3" title="Repeats">
+            <span className="inline-flex items-center gap-1 text-[12px] text-ink-3" title="Repeats">
               <RepeatIcon className="size-3" />
               {recurrenceShort(recurrence)}
             </span>
           ) : null}
           {subTotal > 0 ? (
-            <span className="tabular text-[11px] text-ink-3" title="Subtasks">
+            <span className="tabular text-[12px] text-ink-3" title="Subtasks">
               {subDone}/{subTotal}
             </span>
           ) : null}
           {checkTotal > 0 ? (
-            <span className="inline-flex items-center gap-0.5 tabular text-[11px] text-ink-3" title="Checklist">
+            <span className="inline-flex items-center gap-0.5 tabular text-[12px] text-ink-3" title="Checklist">
               <CheckSquareIcon className="size-3" />
               {checkDone}/{checkTotal}
             </span>
           ) : null}
           {comments > 0 ? (
-            <span className="inline-flex items-center gap-0.5 tabular text-[11px] text-ink-3" title="Comments">
+            <span className="inline-flex items-center gap-0.5 tabular text-[12px] text-ink-3" title="Comments">
               <MessageSquareIcon className="size-3" />
               {comments}
             </span>
           ) : null}
           {attachments > 0 ? (
-            <span className="inline-flex items-center gap-0.5 tabular text-[11px] text-ink-3" title="Attachments">
+            <span className="inline-flex items-center gap-0.5 tabular text-[12px] text-ink-3" title="Attachments">
               <PaperclipIcon className="size-3" />
               {attachments}
             </span>

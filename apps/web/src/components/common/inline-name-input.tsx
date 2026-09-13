@@ -51,7 +51,7 @@ export function InlineNameInput({
         }
       }}
       className={cn(
-        "h-7 w-[calc(100%-0.5rem)] rounded-md border border-ring bg-surface px-2 text-[13px] text-ink outline-none ring-3 ring-ring/30",
+        "h-7 w-[calc(100%-0.5rem)] rounded-md border border-ring bg-surface px-2 text-[14px] text-ink outline-none ring-3 ring-ring/30",
         className,
       )}
     />

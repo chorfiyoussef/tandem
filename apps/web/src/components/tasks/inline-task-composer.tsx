@@ -63,7 +63,7 @@ export function InlineTaskComposer({
           type="button"
           onClick={() => setOpen(true)}
           className={cn(
-            "inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:text-ink",
+            "inline-flex h-7 items-center gap-1.5 rounded-md px-2 text-[13.5px] font-medium text-ink-2 transition-colors hover:text-ink",
             tone === "surface" ? "bg-surface/80 shadow-card hover:bg-surface" : "bg-muted/70 hover:bg-muted dark:bg-muted/50",
           )}
         >
@@ -95,7 +95,7 @@ export function InlineTaskComposer({
           if (title.trim()) submit();
           else close();
         }}
-        className="min-w-0 flex-1 bg-transparent text-[13px] text-ink outline-none placeholder:text-ink-3"
+        className="min-w-0 flex-1 bg-transparent text-[14px] text-ink outline-none placeholder:text-ink-3"
       />
     </div>
   );

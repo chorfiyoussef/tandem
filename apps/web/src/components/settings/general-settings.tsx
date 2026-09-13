@@ -48,7 +48,7 @@ export function GeneralSettings() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>URL</Label>
-            <p className="text-[13px] text-ink-2">/{workspace.slug}</p>
+            <p className="text-[14px] text-ink-2">/{workspace.slug}</p>
           </div>
           {isAdmin ? (
             <div>

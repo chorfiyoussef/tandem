@@ -92,7 +92,7 @@ export function TagPicker({
             <button
               type="button"
               onClick={create}
-              className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left text-[13px] hover:bg-muted"
+              className="flex h-8 w-full items-center gap-2 rounded-md px-2 text-left text-[14px] hover:bg-muted"
             >
               <PlusIcon className="size-3.5 text-ink-2" />
               Create “{query.trim()}”

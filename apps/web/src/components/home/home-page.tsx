@@ -71,9 +71,9 @@ export function HomePage() {
       <div className="min-h-0 flex-1 overflow-y-auto scrollbar-thin">
         <div className="mx-auto w-full max-w-4xl px-4 pb-24 pt-8 md:px-6">
           <div className="mb-6 px-3">
-            <p className="text-[12px] text-ink-3">{format(new Date(), "EEEE, MMMM d")}</p>
-            <h2 className="mt-0.5 text-[22px] font-semibold tracking-[-0.02em] text-ink">{greeting(profile.full_name)}</h2>
-            <p className="mt-1 text-[13px] text-ink-2">
+            <p className="text-[13px] text-ink-3">{format(new Date(), "EEEE, MMMM d")}</p>
+            <h2 className="mt-0.5 text-[24px] font-semibold tracking-[-0.02em] text-ink">{greeting(profile.full_name)}</h2>
+            <p className="mt-1 text-[14px] text-ink-2">
               {isPending ? "Loading your work…" : openCount === 0 ? "Nothing is waiting on you." : openCount === 1 ? "One task is waiting on you." : `${openCount} tasks are waiting on you.`}
             </p>
           </div>
@@ -101,8 +101,8 @@ export function HomePage() {
               {buckets.map((b) => (
                 <section key={b.key}>
                   <header className="flex items-baseline gap-2 px-3 pb-1">
-                    <h3 className={cn("text-[13px] font-semibold", b.tone === "overdue" && "text-destructive", b.key === "done" && "text-ink-2")}>{b.title}</h3>
-                    <span className="tabular text-[12px] text-ink-3">{b.tasks.length}</span>
+                    <h3 className={cn("text-[14px] font-semibold", b.tone === "overdue" && "text-destructive", b.key === "done" && "text-ink-2")}>{b.title}</h3>
+                    <span className="tabular text-[13px] text-ink-3">{b.tasks.length}</span>
                   </header>
                   <div className="flex flex-col gap-1.5 px-3">
                     {b.tasks.map((t) => (

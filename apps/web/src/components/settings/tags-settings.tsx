@@ -42,7 +42,7 @@ export function TagsSettings() {
           </Button>
         </form>
       ) : null}
-      {tags && tags.length === 0 ? <p className="text-[13px] text-ink-3">No tags yet.</p> : null}
+      {tags && tags.length === 0 ? <p className="text-[14px] text-ink-3">No tags yet.</p> : null}
       <ul className="flex max-w-md flex-col overflow-hidden rounded-xl bg-surface shadow-card empty:hidden">
         {(tags ?? []).map((t) => (
           <li key={t.id} className="flex items-center gap-2 px-3 py-1.5 hairline-b last:shadow-none">

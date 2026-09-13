@@ -93,8 +93,8 @@ function SpaceForm({ space, onDone }: { space?: Space; onDone: () => void }) {
       {isAdmin || !space ? (
         <label className="flex items-center justify-between gap-3 rounded-lg bg-muted/60 px-3 py-2">
           <span>
-            <span className="block text-[13px] font-medium">Private space</span>
-            <span className="block text-[12px] text-ink-2">Only admins and people you add can see it.</span>
+            <span className="block text-[14px] font-medium">Private space</span>
+            <span className="block text-[13px] text-ink-2">Only admins and people you add can see it.</span>
           </span>
           <Switch checked={isPrivate} onCheckedChange={setIsPrivate} />
         </label>

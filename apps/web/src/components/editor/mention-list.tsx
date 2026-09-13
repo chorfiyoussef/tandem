@@ -39,7 +39,7 @@ export const MentionList = forwardRef<MentionListRef, SuggestionProps<MentionIte
   }));
 
   if (items.length === 0) {
-    return <div className="rounded-lg bg-popover px-3 py-2 text-[12px] text-ink-3 shadow-float">No one matches</div>;
+    return <div className="rounded-lg bg-popover px-3 py-2 text-[13px] text-ink-3 shadow-float">No one matches</div>;
   }
 
   return (
@@ -50,7 +50,7 @@ export const MentionList = forwardRef<MentionListRef, SuggestionProps<MentionIte
           type="button"
           onMouseEnter={() => setIndex(i)}
           onClick={() => select(i)}
-          className={cn("flex h-8 items-center gap-2 rounded-md px-2 text-left text-[13px]", i === index && "bg-muted")}
+          className={cn("flex h-8 items-center gap-2 rounded-md px-2 text-left text-[14px]", i === index && "bg-muted")}
         >
           <UserAvatar user={item} size="md" />
           <span className="truncate">{displayName(item)}</span>

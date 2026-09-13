@@ -51,7 +51,7 @@ export function UserMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuLabel className="text-[11px] text-ink-3">Appearance</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-[12px] text-ink-3">Appearance</DropdownMenuLabel>
         <DropdownMenuRadioGroup value={theme ?? "system"} onValueChange={setTheme}>
           <DropdownMenuRadioItem value="light">
             <SunIcon /> Light

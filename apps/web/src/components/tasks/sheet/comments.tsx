@@ -20,8 +20,8 @@ export function CommentList({ task }: { task: TaskRow }) {
   const { data: comments, isPending } = useComments(task.id);
   const deleteComment = useDeleteComment(task.id);
 
-  if (isPending) return <p className="py-4 text-[12px] text-ink-3">Loading…</p>;
-  if (!comments || comments.length === 0) return <p className="py-4 text-[13px] text-ink-3">No comments yet. Start the conversation below.</p>;
+  if (isPending) return <p className="py-4 text-[13px] text-ink-3">Loading…</p>;
+  if (!comments || comments.length === 0) return <p className="py-4 text-[14px] text-ink-3">No comments yet. Start the conversation below.</p>;
 
   return (
     <ol className="flex flex-col gap-4">
@@ -30,10 +30,10 @@ export function CommentList({ task }: { task: TaskRow }) {
           <UserAvatar user={c.profiles} size="lg" className="mt-0.5" />
           <div className="min-w-0 flex-1">
             <div className="flex items-baseline gap-2">
-              <span className="text-[13px] font-medium">{displayName(c.profiles)}</span>
+              <span className="text-[14px] font-medium">{displayName(c.profiles)}</span>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <time dateTime={c.created_at} className="text-[11px] text-ink-3">
+                  <time dateTime={c.created_at} className="text-[12px] text-ink-3">
                     {formatRelative(c.created_at)}
                   </time>
                 </TooltipTrigger>
@@ -98,7 +98,7 @@ export function CommentComposer({ task }: { task: TaskRow }) {
           editorRef={editorRef}
         />
         <div className="mt-1.5 flex items-center justify-end gap-2">
-          <span className="text-[11px] text-ink-3">
+          <span className="text-[12px] text-ink-3">
             <Kbd>⌘</Kbd> <Kbd>↵</Kbd> to send
           </span>
           <Button size="sm" onClick={() => submit()} disabled={empty || addComment.isPending}>

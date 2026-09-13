@@ -29,7 +29,7 @@ export function SettingsShell({ children }: { children: React.ReactNode }) {
                   key={i.path}
                   href={i.path}
                   aria-current={active ? "page" : undefined}
-                  className={cn("h-7 shrink-0 rounded-md px-2 text-[13px] leading-7 transition-colors", active ? "bg-muted font-medium text-ink" : "text-ink-2 hover:bg-muted/60 hover:text-ink")}
+                  className={cn("h-7 shrink-0 rounded-md px-2 text-[14px] leading-7 transition-colors", active ? "bg-muted font-medium text-ink" : "text-ink-2 hover:bg-muted/60 hover:text-ink")}
                 >
                   {i.label}
                 </Link>
@@ -46,8 +46,8 @@ export function SettingsShell({ children }: { children: React.ReactNode }) {
 export function SettingsSection({ title, description, children, danger }: { title: string; description?: string; children: React.ReactNode; danger?: boolean }) {
   return (
     <section className="mb-8">
-      <h2 className={cn("text-[15px] font-semibold tracking-[-0.01em]", danger && "text-destructive")}>{title}</h2>
-      {description ? <p className="mt-0.5 text-[13px] text-ink-2">{description}</p> : null}
+      <h2 className={cn("text-[16px] font-semibold tracking-[-0.01em]", danger && "text-destructive")}>{title}</h2>
+      {description ? <p className="mt-0.5 text-[14px] text-ink-2">{description}</p> : null}
       <div className="mt-4">{children}</div>
     </section>
   );

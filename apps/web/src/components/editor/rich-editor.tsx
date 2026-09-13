@@ -151,7 +151,7 @@ export function RichEditor({
     immediatelyRender: false,
     autofocus: autoFocus ? "end" : false,
     editorProps: {
-      attributes: { class: cn("tiptap text-[13.5px] leading-relaxed text-ink outline-none", className) },
+      attributes: { class: cn("tiptap text-[14.5px] leading-relaxed text-ink outline-none", className) },
       handleKeyDown: (_view, event) => {
         if ((event.metaKey || event.ctrlKey) && event.key === "Enter" && submitRef.current) {
           event.preventDefault();
@@ -203,5 +203,5 @@ export function RichContent({ doc, className }: { doc: JSONContent | null | unde
     }
   }, [doc]);
   if (!html) return null;
-  return <div className={cn("tiptap text-[13.5px] leading-relaxed", className)} dangerouslySetInnerHTML={{ __html: html }} />;
+  return <div className={cn("tiptap text-[14.5px] leading-relaxed", className)} dangerouslySetInnerHTML={{ __html: html }} />;
 }

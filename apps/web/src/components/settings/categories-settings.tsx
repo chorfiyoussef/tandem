@@ -50,7 +50,7 @@ export function CategoriesSettings() {
           </Button>
         </form>
       ) : null}
-      {list.length === 0 ? <p className="text-[13px] text-ink-3">No categories yet.</p> : null}
+      {list.length === 0 ? <p className="text-[14px] text-ink-3">No categories yet.</p> : null}
       <ul className="flex max-w-md flex-col overflow-hidden rounded-xl bg-surface shadow-card empty:hidden">
         {list.map((c) => (
           <li key={c.id} className="flex items-center gap-2 px-3 py-1.5 hairline-b last:shadow-none">

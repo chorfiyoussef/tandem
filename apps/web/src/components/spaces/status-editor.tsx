@@ -58,7 +58,7 @@ export function StatusEditor({ space }: { space: Space }) {
 
   return (
     <div className="flex max-w-2xl flex-col gap-4">
-      <p className="text-[13px] text-ink-2">
+      <p className="text-[14px] text-ink-2">
         Every list in <span className="font-medium text-ink">{space.name}</span> uses these statuses. Tasks in a “Done” status count as completed.
       </p>
       <ol className="flex flex-col overflow-hidden rounded-xl bg-surface shadow-card">

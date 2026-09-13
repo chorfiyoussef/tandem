@@ -66,7 +66,7 @@ export function ProfileSettings() {
             <Button variant="outline" size="sm" onClick={() => fileRef.current?.click()}>
               Change photo
             </Button>
-            <p className="text-[12px] text-ink-3">PNG or JPG, under 2 MB.</p>
+            <p className="text-[13px] text-ink-3">PNG or JPG, under 2 MB.</p>
           </div>
         </div>
         <form onSubmit={saveName} className="mt-5 flex max-w-md flex-col gap-4">
@@ -76,7 +76,7 @@ export function ProfileSettings() {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label>Email</Label>
-            <p className="text-[13px] text-ink-2">{profile.email}</p>
+            <p className="text-[14px] text-ink-2">{profile.email}</p>
           </div>
           <div>
             <Button type="submit" disabled={busy || name.trim() === (profile.full_name ?? "") || !name.trim()}>

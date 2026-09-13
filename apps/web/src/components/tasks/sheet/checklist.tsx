@@ -31,16 +31,16 @@ export function Checklist({ task }: { task: TaskRow }) {
   return (
     <section className="flex flex-col">
       <header className="flex items-center gap-2 pb-1">
-        <h3 className="text-[12px] font-medium text-ink-2">Checklist</h3>
+        <h3 className="text-[13px] font-medium text-ink-2">Checklist</h3>
         {list.length > 0 ? (
-          <span className="tabular text-[12px] text-ink-3">
+          <span className="tabular text-[13px] text-ink-3">
             {done}/{list.length}
           </span>
         ) : null}
       </header>
       <div className="-mx-2 flex flex-col">
         {list.map((item) => (
-          <div key={item.id} className="group/item flex h-8 items-center gap-2.5 rounded-md px-2 text-[13px] hover:bg-muted/60">
+          <div key={item.id} className="group/item flex h-8 items-center gap-2.5 rounded-md px-2 text-[14px] hover:bg-muted/60">
             <Checkbox checked={item.done} disabled={!canEdit} onCheckedChange={(v) => toggle.mutate({ id: item.id, done: v === true })} aria-label={item.title} />
             {editing === item.id ? (
               <InlineNameInput
@@ -85,7 +85,7 @@ export function Checklist({ task }: { task: TaskRow }) {
           </div>
         ) : canEdit ? (
           <div className="px-2 pt-1">
-            <button type="button" onClick={() => setAdding(true)} className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted/70 px-2 text-[12.5px] font-medium text-ink-2 transition-colors hover:bg-muted hover:text-ink dark:bg-muted/50">
+            <button type="button" onClick={() => setAdding(true)} className="inline-flex h-7 items-center gap-1.5 rounded-md bg-muted/70 px-2 text-[13.5px] font-medium text-ink-2 transition-colors hover:bg-muted hover:text-ink dark:bg-muted/50">
               <PlusIcon className="size-3.5" /> Add item
             </button>
           </div>

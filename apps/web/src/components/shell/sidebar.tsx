@@ -29,7 +29,7 @@ export function Sidebar({ workspaces }: { workspaces: WorkspaceSummary[] }) {
   const closeOnMobile = () => isMobile && setSidebarOpen(false);
 
   return (
-    <div className="flex h-full flex-col text-[13px] text-sidebar-foreground">
+    <div className="flex h-full flex-col text-[14px] text-sidebar-foreground">
       <div className="flex items-center gap-1 px-2.5 pt-2.5">
         <WorkspaceSwitcher workspaces={workspaces} />
         {!isMobile && (
@@ -65,7 +65,7 @@ export function Sidebar({ workspaces }: { workspaces: WorkspaceSummary[] }) {
         <NavItem href={href("/inbox")} active={pathname.startsWith(href("/inbox"))} icon={pathname.startsWith(href("/inbox")) ? <InboxFilledIcon /> : <InboxIcon />} onClick={closeOnMobile}>
           <span className="flex-1">Inbox</span>
           {unread > 0 ? (
-            <span className="tabular rounded-full pastel-sky px-1.5 py-px text-[11px] font-medium leading-4">{unread > 99 ? "99+" : unread}</span>
+            <span className="tabular rounded-full pastel-sky px-1.5 py-px text-[12px] font-medium leading-4">{unread > 99 ? "99+" : unread}</span>
           ) : null}
         </NavItem>
       </nav>

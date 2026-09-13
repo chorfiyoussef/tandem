@@ -15,10 +15,10 @@ function hueFor(id: string): (typeof PALETTE)[number] {
 
 /** Small monograms show one letter; only the large profile avatar shows two. */
 const SIZES = {
-  xs: { box: "size-3.5", text: "text-[7px]", letters: 1 },
-  sm: { box: "size-4", text: "text-[8px]", letters: 1 },
-  md: { box: "size-5", text: "text-[9px]", letters: 1 },
-  lg: { box: "size-6", text: "text-[10px]", letters: 1 },
+  xs: { box: "size-3.5", text: "text-[8px]", letters: 1 },
+  sm: { box: "size-4", text: "text-[9px]", letters: 1 },
+  md: { box: "size-5", text: "text-[10px]", letters: 1 },
+  lg: { box: "size-6", text: "text-[11px]", letters: 1 },
   xl: { box: "size-14", text: "text-lg", letters: 2 },
 } as const;
 

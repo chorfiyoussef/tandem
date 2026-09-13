@@ -55,7 +55,7 @@ export function DueDatePicker({
         {trigger ?? (
           <PickerTrigger className={className} placeholder={!current} disabled={disabled}>
             {current ? (
-              <DueLabel date={current} completed={!!task?.completed_at} className="text-[13px]" />
+              <DueLabel date={current} completed={!!task?.completed_at} className="text-[14px]" />
             ) : (
               <>
                 <CalendarIcon className="size-3.5" />

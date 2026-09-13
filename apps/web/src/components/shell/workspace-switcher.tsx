@@ -17,7 +17,7 @@ export function WorkspaceMark({ name, className }: { name: string; className?: s
   return (
     <span
       className={cn(
-        "flex size-5 shrink-0 items-center justify-center rounded-md pastel-lavender text-[11px] font-semibold",
+        "flex size-5 shrink-0 items-center justify-center rounded-md pastel-lavender text-[12px] font-semibold",
         className,
       )}
       aria-hidden
@@ -37,7 +37,7 @@ export function WorkspaceSwitcher({ workspaces }: { workspaces: WorkspaceSummary
           className="flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg px-1.5 text-left transition-colors hover:bg-sidebar-accent aria-expanded:bg-sidebar-accent outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
         >
           <WorkspaceMark name={workspace.name} />
-          <span className="min-w-0 flex-1 truncate text-[13px] font-semibold tracking-[-0.01em]">{workspace.name}</span>
+          <span className="min-w-0 flex-1 truncate text-[14px] font-semibold tracking-[-0.01em]">{workspace.name}</span>
           <ChevronDownIcon className="size-3.5 shrink-0 text-ink-3" />
         </button>
       </DropdownMenuTrigger>

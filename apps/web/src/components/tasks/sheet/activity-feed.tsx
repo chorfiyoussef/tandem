@@ -15,20 +15,20 @@ export function ActivityFeed({ task }: { task: TaskRow }) {
   const { data: members } = useMembers(workspace.id);
   const nameOf = (id?: string | null) => displayName(members?.find((m) => m.user_id === id)?.profiles ?? null);
 
-  if (isPending) return <p className="py-4 text-[12px] text-ink-3">Loading…</p>;
-  if (!activity || activity.length === 0) return <p className="py-4 text-[13px] text-ink-3">Nothing has happened yet.</p>;
+  if (isPending) return <p className="py-4 text-[13px] text-ink-3">Loading…</p>;
+  if (!activity || activity.length === 0) return <p className="py-4 text-[14px] text-ink-3">Nothing has happened yet.</p>;
 
   return (
     <ol className="flex flex-col gap-2.5">
       {activity.map((a) => (
-        <li key={a.id} className="flex items-start gap-2.5 text-[12.5px]">
+        <li key={a.id} className="flex items-start gap-2.5 text-[13.5px]">
           <UserAvatar user={a.profiles} size="sm" className="mt-0.5" />
           <span className="min-w-0 flex-1 text-ink-2">
             <span className="font-medium text-ink">{displayName(a.profiles)}</span> {describe(a, nameOf)}
           </span>
           <Tooltip>
             <TooltipTrigger asChild>
-              <time dateTime={a.created_at} className="shrink-0 text-[11px] text-ink-3">
+              <time dateTime={a.created_at} className="shrink-0 text-[12px] text-ink-3">
                 {formatRelative(a.created_at)}
               </time>
             </TooltipTrigger>

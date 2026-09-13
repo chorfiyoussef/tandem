@@ -57,7 +57,7 @@ export function SpacePage({ spaceId }: { spaceId: string }) {
         icon={space ? <SpaceIcon name={space.icon} className={cn("size-4", `pastel-text-${color}`)} /> : null}
       >
         {space?.is_private ? (
-          <span className="mr-2 flex items-center gap-1 text-[12px] text-ink-3">
+          <span className="mr-2 flex items-center gap-1 text-[13px] text-ink-3">
             <LockIcon className="size-3" /> Private
           </span>
         ) : null}
@@ -88,8 +88,8 @@ export function SpacePage({ spaceId }: { spaceId: string }) {
                       href={href(`/l/${l.id}`)}
                       className="group flex flex-col gap-3 rounded-xl bg-surface p-4 shadow-card transition-shadow hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40 outline-none"
                     >
-                      <span className="text-[14px] font-medium">{l.name}</span>
-                      <span className="flex items-center gap-3 text-[12px] text-ink-2">
+                      <span className="text-[15px] font-medium">{l.name}</span>
+                      <span className="flex items-center gap-3 text-[13px] text-ink-2">
                         <span className="tabular">{open} open</span>
                         {done > 0 ? <span className="tabular text-ink-3">{done} done</span> : null}
                       </span>
@@ -123,7 +123,7 @@ export function SpacePage({ spaceId }: { spaceId: string }) {
                     <button
                       type="button"
                       onClick={() => setAdding(true)}
-                      className="flex min-h-24 items-center justify-center gap-2 rounded-xl border border-dashed border-hairline-strong text-[13px] text-ink-2 transition-colors hover:bg-muted/50 hover:text-ink"
+                      className="flex min-h-24 items-center justify-center gap-2 rounded-xl border border-dashed border-hairline-strong text-[14px] text-ink-2 transition-colors hover:bg-muted/50 hover:text-ink"
                     >
                       <PlusIcon className="size-4" /> New list
                     </button>

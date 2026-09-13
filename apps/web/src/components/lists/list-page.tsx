@@ -113,7 +113,7 @@ export function ListPage({ listId }: { listId: string }) {
         crumbs={
           space ? (
             <>
-              <Link href={href(`/s/${space.id}`)} className="hidden items-center gap-1.5 rounded px-1 py-0.5 text-[13px] text-ink-2 hover:bg-muted hover:text-ink sm:flex">
+              <Link href={href(`/s/${space.id}`)} className="hidden items-center gap-1.5 rounded px-1 py-0.5 text-[14px] text-ink-2 hover:bg-muted hover:text-ink sm:flex">
                 <SpaceIcon name={space.icon} className={cn("size-3.5", `pastel-text-${asPastel(space.color)}`)} />
                 {space.name}
               </Link>
@@ -154,7 +154,7 @@ export function ListPage({ listId }: { listId: string }) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
-            <DropdownMenuLabel className="text-[11px] text-ink-3">Show</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-[12px] text-ink-3">Show</DropdownMenuLabel>
             <DropdownMenuCheckboxItem checked={mine} onCheckedChange={(v) => setMine(!!v)}>
               Only my tasks
             </DropdownMenuCheckboxItem>
@@ -164,7 +164,7 @@ export function ListPage({ listId }: { listId: string }) {
             {view === "list" ? (
               <>
                 <DropdownMenuSeparator />
-                <DropdownMenuLabel className="text-[11px] text-ink-3">Group by</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-[12px] text-ink-3">Group by</DropdownMenuLabel>
                 <DropdownMenuRadioGroup value={groupBy} onValueChange={(v) => setListGroupBy(listId, v as ListGroupBy)}>
                   <DropdownMenuRadioItem value="status">Status</DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value="category">Category</DropdownMenuRadioItem>
@@ -172,7 +172,7 @@ export function ListPage({ listId }: { listId: string }) {
               </>
             ) : null}
             <DropdownMenuSeparator />
-            <DropdownMenuLabel className="text-[11px] text-ink-3">Category</DropdownMenuLabel>
+            <DropdownMenuLabel className="text-[12px] text-ink-3">Category</DropdownMenuLabel>
             <DropdownMenuRadioGroup value={categoryFilter} onValueChange={setCategoryFilter}>
               <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
               <DropdownMenuRadioItem value="none">No category</DropdownMenuRadioItem>

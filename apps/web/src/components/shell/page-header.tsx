@@ -43,7 +43,7 @@ export function PageHeader({
         {icon ? <span className="flex shrink-0 items-center text-ink-2">{icon}</span> : null}
         <div className="flex min-w-0 items-center gap-1.5">
           {crumbs}
-          <h1 className="truncate text-[14px] font-semibold tracking-[-0.01em] text-ink">{title}</h1>
+          <h1 className="truncate text-[15px] font-semibold tracking-[-0.01em] text-ink">{title}</h1>
         </div>
       </div>
       {children ? <div className="flex shrink-0 items-center gap-1">{children}</div> : null}

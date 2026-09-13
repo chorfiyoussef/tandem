@@ -13,7 +13,7 @@ import type { TaskRow } from "@/lib/types";
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex min-h-8 items-start gap-3">
-      <span className="w-[84px] shrink-0 pt-1.5 text-[12px] text-ink-3">{label}</span>
+      <span className="w-[84px] shrink-0 pt-1.5 text-[13px] text-ink-3">{label}</span>
       <div className="-ml-1.5 min-w-0 flex-1">{children}</div>
     </div>
   );

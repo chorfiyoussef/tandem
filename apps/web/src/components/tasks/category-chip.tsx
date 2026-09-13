@@ -8,7 +8,7 @@ import type { Category } from "@/lib/types";
 export function CategoryChip({ category, className }: { category: Pick<Category, "name" | "color">; className?: string }) {
   const c = asPastel(category.color);
   return (
-    <span className={cn("inline-flex h-5 max-w-36 items-center rounded-md px-1.5 text-[11px] font-medium leading-none", `pastel-${c}`, className)}>
+    <span className={cn("inline-flex h-5 max-w-36 items-center rounded-md px-1.5 text-[12px] font-medium leading-none", `pastel-${c}`, className)}>
       <span className="truncate">{category.name}</span>
     </span>
   );

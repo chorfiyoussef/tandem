@@ -98,7 +98,7 @@ export function SidebarSpaces({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <div className="px-2 pb-1 text-[11px] font-medium text-ink-3">{children}</div>;
+  return <div className="px-2 pb-1 text-[12px] font-medium text-ink-3">{children}</div>;
 }
 
 function SpaceGroup({
@@ -203,7 +203,7 @@ function SpaceGroup({
             />
           ) : null}
           {lists.length === 0 && !adding ? (
-            <p className="ml-7 py-1 text-[12px] text-ink-3">No lists yet</p>
+            <p className="ml-7 py-1 text-[13px] text-ink-3">No lists yet</p>
           ) : null}
         </div>
       ) : null}

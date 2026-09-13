@@ -69,11 +69,11 @@ export function MembersSettings() {
             <li key={m.user_id} className="flex items-center gap-3 px-3 py-2.5 hairline-b last:shadow-none">
               <UserAvatar user={m.profiles} size="lg" />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-[13px] font-medium">
+                <p className="truncate text-[14px] font-medium">
                   {displayName(m.profiles)}
                   {m.user_id === userId ? <span className="font-normal text-ink-3"> (you)</span> : null}
                 </p>
-                <p className="truncate text-[12px] text-ink-2">{m.profiles.email}</p>
+                <p className="truncate text-[13px] text-ink-2">{m.profiles.email}</p>
               </div>
               {canChange(m) ? (
                 <Select value={m.role} onValueChange={(v) => updateRole.mutate({ userId: m.user_id, role: v as MemberRole })}>
@@ -89,7 +89,7 @@ export function MembersSettings() {
                   </SelectContent>
                 </Select>
               ) : (
-                <span className="w-28 text-right text-[12px] text-ink-2">{ROLE_META[m.role as MemberRole].label}</span>
+                <span className="w-28 text-right text-[13px] text-ink-2">{ROLE_META[m.role as MemberRole].label}</span>
               )}
               {canChange(m) ? (
                 <Button variant="ghost" size="icon-sm" className="text-ink-3 hover:text-destructive" aria-label="Remove member" onClick={() => setRemoving(m)}>
@@ -125,13 +125,13 @@ export function MembersSettings() {
                 <MailIcon /> Send invites
               </Button>
             </div>
-            <p className="text-[12px] text-ink-3">{ROLE_META[inviteRole].description}</p>
+            <p className="text-[13px] text-ink-3">{ROLE_META[inviteRole].description}</p>
           </form>
 
           {results.length > 0 ? (
             <ul className="mt-4 flex max-w-lg flex-col gap-2">
               {results.map((r) => (
-                <li key={r.email} className="flex items-center gap-2 rounded-lg bg-muted/60 px-3 py-2 text-[12px]">
+                <li key={r.email} className="flex items-center gap-2 rounded-lg bg-muted/60 px-3 py-2 text-[13px]">
                   <span className="min-w-0 flex-1 truncate">
                     <span className="font-medium">{r.email}</span>
                     <span className="text-ink-2"> — {r.error ? r.error : r.emailed ? "invite emailed" : "share this link"}</span>
@@ -148,13 +148,13 @@ export function MembersSettings() {
 
           {invites && invites.length > 0 ? (
             <div className="mt-6">
-              <h3 className="mb-2 text-[13px] font-medium">Pending invites</h3>
+              <h3 className="mb-2 text-[14px] font-medium">Pending invites</h3>
               <ul className="flex flex-col overflow-hidden rounded-xl bg-surface shadow-card">
                 {invites.map((i) => (
-                  <li key={i.id} className="flex items-center gap-3 px-3 py-2 text-[13px] hairline-b last:shadow-none">
+                  <li key={i.id} className="flex items-center gap-3 px-3 py-2 text-[14px] hairline-b last:shadow-none">
                     <span className="min-w-0 flex-1 truncate">{i.email}</span>
-                    <span className="text-[12px] text-ink-3">{ROLE_META[i.role as MemberRole].label}</span>
-                    <span className="text-[12px] text-ink-3">{formatRelative(i.created_at)}</span>
+                    <span className="text-[13px] text-ink-3">{ROLE_META[i.role as MemberRole].label}</span>
+                    <span className="text-[13px] text-ink-3">{formatRelative(i.created_at)}</span>
                     <Button size="icon-xs" variant="ghost" aria-label="Copy invite link" onClick={() => copy(`${window.location.origin}/invite/${i.token}`)}>
                       <CopyIcon />
                     </Button>

@@ -10,7 +10,7 @@ export function DueLabel({ date, completed, className, showIcon = true }: { date
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 whitespace-nowrap text-[12px] tabular",
+        "inline-flex items-center gap-1 whitespace-nowrap text-[13px] tabular",
         tone === "overdue" && "font-medium text-destructive",
         tone === "today" && "font-medium text-ink",
         (tone === "soon" || tone === "later") && "text-ink-2",

@@ -103,9 +103,9 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
       }}
     >
       <div className="flex flex-col gap-3 px-5 pt-4">
-        <div className="flex items-center gap-2 text-[12px] text-ink-2">
+        <div className="flex items-center gap-2 text-[13px] text-ink-2">
           <span>New task in</span>
-          <ListPicker value={effectiveListId} onChange={setListId} className="h-6 px-1 text-[12px]" />
+          <ListPicker value={effectiveListId} onChange={setListId} className="h-6 px-1 text-[13px]" />
         </div>
         <textarea
           autoFocus
@@ -119,14 +119,14 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
             }
           }}
           placeholder="Task name"
-          className="w-full resize-none bg-transparent text-[18px] font-semibold tracking-[-0.01em] outline-none placeholder:text-ink-3"
+          className="w-full resize-none bg-transparent text-[20px] font-semibold tracking-[-0.01em] outline-none placeholder:text-ink-3"
         />
         <textarea
           value={description}
           rows={2}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="Add details… (optional)"
-          className="w-full resize-none bg-transparent text-[13.5px] outline-none placeholder:text-ink-3"
+          className="w-full resize-none bg-transparent text-[14.5px] outline-none placeholder:text-ink-3"
         />
         <div className="-ml-1.5 flex flex-wrap items-center gap-1 pb-3">
           {effectiveListId ? <StatusPicker listId={effectiveListId} value={effectiveStatus} onChange={(s) => setStatusId(s.id)} /> : null}
@@ -139,7 +139,7 @@ function NewTaskForm({ onDone }: { onDone: () => void }) {
         </div>
       </div>
       <div className="flex items-center gap-3 px-5 py-3 hairline-t">
-        <label className="flex items-center gap-2 text-[12px] text-ink-2">
+        <label className="flex items-center gap-2 text-[13px] text-ink-2">
           <Switch checked={createMore} onCheckedChange={setCreateMore} size="sm" />
           Create more
         </label>

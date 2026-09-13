@@ -67,8 +67,8 @@ export function TaskSheet() {
           </div>
         ) : (
           <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center">
-            <p className="text-[14px] font-medium">This task isn’t available.</p>
-            <p className="text-[13px] text-ink-2">It may have been deleted, or you don’t have access.</p>
+            <p className="text-[15px] font-medium">This task isn’t available.</p>
+            <p className="text-[14px] text-ink-2">It may have been deleted, or you don’t have access.</p>
             <Button variant="outline" className="mt-2" onClick={() => openTask(null)}>
               Close
             </Button>
@@ -105,7 +105,7 @@ function TaskSheetBody({ task }: { task: TaskRow }) {
   return (
     <div className="flex h-full flex-col">
       <header className="flex h-12 shrink-0 items-center gap-1 px-3 hairline-b">
-        <nav className="flex min-w-0 flex-1 items-center gap-1 text-[12px] text-ink-2">
+        <nav className="flex min-w-0 flex-1 items-center gap-1 text-[13px] text-ink-2">
           {space ? (
             <Link href={href(`/s/${space.id}`)} className="flex items-center gap-1.5 truncate rounded px-1 py-0.5 hover:bg-muted hover:text-ink">
               <SpaceIcon name={space.icon} className={cn("size-3.5", `pastel-text-${asPastel(space.color)}`)} />
@@ -157,7 +157,7 @@ function TaskSheetBody({ task }: { task: TaskRow }) {
       <div className="min-h-0 flex-1 overflow-y-auto scrollbar-thin @container">
         <div className="flex flex-col gap-6 px-6 pb-6 pt-5">
           {parent ? (
-            <button type="button" onClick={() => openTask(parent.id)} className="-mb-3 flex w-fit items-center gap-1.5 rounded px-1 py-0.5 text-[12px] text-ink-2 hover:bg-muted hover:text-ink">
+            <button type="button" onClick={() => openTask(parent.id)} className="-mb-3 flex w-fit items-center gap-1.5 rounded px-1 py-0.5 text-[13px] text-ink-2 hover:bg-muted hover:text-ink">
               <ArrowUpLeftIcon className="size-3.5" />
               <span className="truncate">{parent.title}</span>
             </button>

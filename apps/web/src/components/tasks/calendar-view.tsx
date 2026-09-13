@@ -64,7 +64,7 @@ export function CalendarView({ tasks, listId }: { tasks: TaskRowType[]; listId: 
     <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={(e) => setActiveId(String(e.active.id))} onDragEnd={onDragEnd} onDragCancel={() => setActiveId(null)}>
       <div className="flex h-full flex-col">
         <div className="flex items-center gap-2 px-4 py-2">
-          <h2 className="text-[15px] font-semibold tracking-[-0.01em]">{format(month, "MMMM yyyy")}</h2>
+          <h2 className="text-[16px] font-semibold tracking-[-0.01em]">{format(month, "MMMM yyyy")}</h2>
           <div className="ml-auto flex items-center gap-1">
             <Button variant="ghost" size="sm" onClick={() => setMonth(startOfMonth(new Date()))}>
               Today
@@ -78,7 +78,7 @@ export function CalendarView({ tasks, listId }: { tasks: TaskRowType[]; listId: 
           </div>
         </div>
 
-        <div className="grid grid-cols-7 px-4 text-[11px] font-medium text-ink-3">
+        <div className="grid grid-cols-7 px-4 text-[12px] font-medium text-ink-3">
           {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((d) => (
             <div key={d} className="px-2 py-1">
               {d}
@@ -119,7 +119,7 @@ function DayCell({ id, day, muted, tasks, listId, onAdd }: { id: string; day: Da
       <div className="flex items-center justify-between">
         <span
           className={cn(
-            "flex size-6 items-center justify-center rounded-full text-[12px] tabular",
+            "flex size-6 items-center justify-center rounded-full text-[13px] tabular",
             today ? "bg-action font-semibold text-action-foreground" : muted ? "text-ink-3" : "text-ink-2",
           )}
         >
@@ -144,7 +144,7 @@ function UnscheduledTray({ tasks, listId }: { tasks: TaskRowType[]; listId: stri
   const { setNodeRef, isOver } = useDroppable({ id: "unscheduled" });
   return (
     <div ref={setNodeRef} className={cn("flex items-center gap-2 overflow-x-auto px-4 py-2 hairline-t scrollbar-none", isOver && "bg-action-soft/40")}>
-      <span className="shrink-0 text-[12px] text-ink-3">No date</span>
+      <span className="shrink-0 text-[13px] text-ink-3">No date</span>
       {tasks.map((t) => (
         <Chip key={t.id} task={t} listId={listId} className="w-auto max-w-56 shrink-0" />
       ))}
@@ -165,7 +165,7 @@ function Chip({ task, listId, overlay, className }: { task: TaskRowType; listId:
       {...listeners}
       onClick={() => openTask(task.id)}
       className={cn(
-        "flex h-6 w-full min-w-0 items-center gap-1.5 rounded-md bg-muted/70 px-1.5 text-left text-[12px] leading-none hover:bg-muted",
+        "flex h-6 w-full min-w-0 items-center gap-1.5 rounded-md bg-muted/70 px-1.5 text-left text-[13px] leading-none hover:bg-muted",
         task.completed_at && "text-ink-3 line-through",
         isDragging && "opacity-30",
         overlay && "w-40 bg-surface shadow-float",

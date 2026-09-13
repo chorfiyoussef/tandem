@@ -47,7 +47,7 @@ export function TaskTitle({ task, disabled }: { task: TaskRow; disabled?: boolea
         }
       }}
       className={cn(
-        "w-full resize-none overflow-hidden bg-transparent text-[20px] font-semibold leading-tight tracking-[-0.015em] text-ink outline-none placeholder:text-ink-3",
+        "w-full resize-none overflow-hidden bg-transparent text-[22px] font-semibold leading-tight tracking-[-0.015em] text-ink outline-none placeholder:text-ink-3",
         task.completed_at && "text-ink-2",
       )}
       placeholder="Task name"

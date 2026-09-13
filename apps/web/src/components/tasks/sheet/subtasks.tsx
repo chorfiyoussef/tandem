@@ -33,9 +33,9 @@ export function Subtasks({ task }: { task: TaskRow }) {
   return (
     <section className="flex flex-col">
       <header className="flex items-center gap-2 pb-1">
-        <h3 className="text-[12px] font-medium text-ink-2">Subtasks</h3>
+        <h3 className="text-[13px] font-medium text-ink-2">Subtasks</h3>
         {items.length > 0 ? (
-          <span className="tabular text-[12px] text-ink-3">
+          <span className="tabular text-[13px] text-ink-3">
             {done}/{items.length}
           </span>
         ) : null}
@@ -53,11 +53,11 @@ export function Subtasks({ task }: { task: TaskRow }) {
             tabIndex={0}
             onClick={() => openTask(s.id)}
             onKeyDown={(e) => e.key === "Enter" && openTask(s.id)}
-            className="flex h-8 items-center gap-2 rounded-md px-2 text-[13px] outline-none hover:bg-muted/60 focus-visible:bg-muted/60"
+            className="flex h-8 items-center gap-2 rounded-md px-2 text-[14px] outline-none hover:bg-muted/60 focus-visible:bg-muted/60"
           >
             <CompleteCheck task={s} size={15} />
             <span className={cn("min-w-0 flex-1 truncate", s.completed_at && "text-ink-3 line-through")}>{s.title}</span>
-            <DueLabel date={s.due_date} completed={!!s.completed_at} showIcon={false} className="text-[11px]" />
+            <DueLabel date={s.due_date} completed={!!s.completed_at} showIcon={false} className="text-[12px]" />
             <AssigneeAvatars users={s.task_assignees.map((a) => a.profiles)} size="xs" />
           </div>
         ))}

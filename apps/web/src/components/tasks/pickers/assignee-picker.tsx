@@ -22,7 +22,7 @@ export function AssigneeAvatars({ users, size = "sm", max = 3 }: { users: (Profi
         <UserAvatar key={u.id} user={u} size={size} className="ring-[1.5px] ring-surface" />
       ))}
       {rest > 0 ? (
-        <span className={cn("flex items-center justify-center rounded-full bg-muted font-medium text-ink-2 ring-2 ring-surface", size === "xs" ? "size-3.5 text-[7px]" : size === "sm" ? "size-4 text-[8px]" : "size-5 text-[9px]")}>
+        <span className={cn("flex items-center justify-center rounded-full bg-muted font-medium text-ink-2 ring-2 ring-surface", size === "xs" ? "size-3.5 text-[8px]" : size === "sm" ? "size-4 text-[9px]" : "size-5 text-[10px]")}>
           +{rest}
         </span>
       ) : null}
@@ -52,7 +52,7 @@ export function AssigneeLabel({
   return (
     <span className={cn("inline-flex min-w-0 items-center gap-1.5", className)}>
       <AssigneeAvatars users={list} size={size} max={3} />
-      <span className={cn("truncate text-ink-2", size === "xs" ? "text-[11px]" : "text-[12px]")}>{label}</span>
+      <span className={cn("truncate text-ink-2", size === "xs" ? "text-[12px]" : "text-[13px]")}>{label}</span>
       {list.length > 1 ? <ChevronDownIcon className="size-2.5 shrink-0 text-ink-3" /> : null}
     </span>
   );

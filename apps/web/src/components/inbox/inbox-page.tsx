@@ -80,17 +80,17 @@ export function InboxPage() {
                     <span className={cn("mt-2 size-1.5 shrink-0 rounded-full", n.read_at ? "bg-transparent" : "bg-action")} aria-hidden />
                     <UserAvatar user={n.actor} size="lg" />
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[13px] text-ink">{describe(n)}</span>
+                      <span className="block text-[14px] text-ink">{describe(n)}</span>
                       {n.tasks ? (
-                        <span className="mt-0.5 block truncate text-[12px] text-ink-2">
+                        <span className="mt-0.5 block truncate text-[13px] text-ink-2">
                           {n.tasks.title}
                         </span>
                       ) : null}
                       {typeof n.payload === "object" && n.payload && "excerpt" in n.payload && (n.payload as { excerpt?: string }).excerpt ? (
-                        <span className="mt-1 block truncate rounded-md bg-muted/70 px-2 py-1 text-[12px] text-ink-2">{(n.payload as { excerpt: string }).excerpt}</span>
+                        <span className="mt-1 block truncate rounded-md bg-muted/70 px-2 py-1 text-[13px] text-ink-2">{(n.payload as { excerpt: string }).excerpt}</span>
                       ) : null}
                     </span>
-                    <time className="shrink-0 text-[11px] text-ink-3">{formatRelative(n.created_at)}</time>
+                    <time className="shrink-0 text-[12px] text-ink-3">{formatRelative(n.created_at)}</time>
                   </button>
                   <button
                     type="button"
