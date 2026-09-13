@@ -14,7 +14,7 @@ export async function runDueReminders() {
   const day = todayIn(env.REMINDER_TZ);
   const { data: tasks, error } = await admin
     .from("tasks")
-    .select("id, number, title, due_date, workspace_id, list_id, task_assignees(user_id), workspaces(slug, task_prefix)")
+    .select("id, number, title, due_date, workspace_id, list_id, task_assignees(user_id), workspaces(slug)")
     .lte("due_date", day)
     .is("completed_at", null)
     .is("archived_at", null);
@@ -27,18 +27,18 @@ export async function runDueReminders() {
     .contains("payload", { day });
   const seen = new Set((existing ?? []).map((n) => `${n.user_id}:${n.task_id}`));
 
-  const perUser = new Map<string, { ref: string; title: string; when: string; url: string }[]>();
+  const perUser = new Map<string, { title: string; when: string; url: string }[]>();
   const inserts: { user_id: string; workspace_id: string; task_id: string; type: "due_soon"; payload: Record<string, string> }[] = [];
 
   for (const t of tasks ?? []) {
-    const ws = t.workspaces as unknown as { slug: string; task_prefix: string } | null;
+    const ws = t.workspaces as unknown as { slug: string } | null;
     const when = t.due_date === day ? "today" : "overdue";
     for (const a of t.task_assignees) {
       const key = `${a.user_id}:${t.id}`;
       if (seen.has(key)) continue;
       inserts.push({ user_id: a.user_id, workspace_id: t.workspace_id, task_id: t.id, type: "due_soon", payload: { title: t.title, when, day } });
       const list = perUser.get(a.user_id) ?? [];
-      list.push({ ref: `${ws?.task_prefix ?? "T"}-${t.number}`, title: t.title, when, url: `${env.APP_URL}/${ws?.slug}/t/${t.number}` });
+      list.push({ title: t.title, when, url: `${env.APP_URL}/${ws?.slug}/t/${t.number}` });
       perUser.set(a.user_id, list);
     }
   }

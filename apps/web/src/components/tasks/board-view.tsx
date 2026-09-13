@@ -20,10 +20,10 @@ import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, v
 import { CSS } from "@dnd-kit/utilities";
 import { PlusIcon, MessageSquareIcon, CheckSquareIcon, RepeatIcon } from "@/components/icons";
 import { parseRecurrence, recurrenceShort } from "@/lib/recurrence";
-import { useWorkspace } from "@/components/workspace-provider";
 import { useSpaceStatuses } from "@/hooks/use-space-statuses";
 import { useMoveTask } from "@/lib/queries/tasks";
 import { useOpenTask } from "@/hooks/use-open-task";
+import { useWorkspace } from "@/components/workspace-provider";
 import { useUi } from "@/stores/ui";
 import { StatusDot } from "./status-dot";
 import { TagChip } from "./tag-chip";
@@ -200,7 +200,6 @@ function SortableCard({ task }: { task: TaskRowType }) {
 }
 
 export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }) {
-  const { workspace } = useWorkspace();
   const openTask = useOpenTask();
   const done = !!task.completed_at;
   const tags = task.task_tags.map((t) => t.tags).filter((t): t is NonNullable<typeof t> => !!t);
@@ -235,9 +234,6 @@ export function Card({ task, overlay }: { task: TaskRowType; overlay?: boolean }
         </div>
       ) : null}
       <div className="flex items-center gap-2 text-[11px] text-ink-3">
-        <span className="tabular">
-          {workspace.task_prefix}-{task.number}
-        </span>
         {subTotal > 0 ? (
           <span className="tabular">
             {subDone}/{subTotal}

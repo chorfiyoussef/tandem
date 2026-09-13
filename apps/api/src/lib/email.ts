@@ -44,16 +44,16 @@ export async function sendInviteEmail(opts: { to: string; workspaceName: string;
   return true;
 }
 
-export async function sendDueDigest(opts: { to: string; name: string | null; appUrl: string; items: { ref: string; title: string; when: string; url: string }[] }) {
+export async function sendDueDigest(opts: { to: string; name: string | null; appUrl: string; items: { title: string; when: string; url: string }[] }) {
   if (!transport || opts.items.length === 0) return false;
   const rows = opts.items
-    .map((i) => `<li style="margin:6px 0"><a href="${i.url}" style="color:#1d1d1f;text-decoration:none"><span style="color:#8e8e93;font-variant-numeric:tabular-nums">${escapeHtml(i.ref)}</span> ${escapeHtml(i.title)}</a> <span style="color:#6e6e73">· ${escapeHtml(i.when)}</span></li>`)
+    .map((i) => `<li style="margin:6px 0"><a href="${i.url}" style="color:#1d1d1f;text-decoration:none">${escapeHtml(i.title)}</a> <span style="color:#6e6e73">· ${escapeHtml(i.when)}</span></li>`)
     .join("");
   await transport.sendMail({
     from: env.SMTP_FROM,
     to: opts.to,
     subject: opts.items.length === 1 ? "1 task is due" : `${opts.items.length} tasks are due`,
-    text: opts.items.map((i) => `${i.ref} ${i.title} (${i.when}) ${i.url}`).join("\n"),
+    text: opts.items.map((i) => `${i.title} (${i.when}) ${i.url}`).join("\n"),
     html: layout(`Good morning${opts.name ? `, ${opts.name.split(" ")[0]}` : ""}`, `<p>Here's what's due:</p><ul style="padding-left:18px">${rows}</ul>`, { label: "Open Tandem", url: opts.appUrl }),
   });
   return true;

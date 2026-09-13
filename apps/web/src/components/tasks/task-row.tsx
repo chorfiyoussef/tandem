@@ -41,7 +41,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
   { task, showStatus, listName, dragHandleProps, dragging, overlay, className, style, depth = 0 },
   ref,
 ) {
-  const { workspace, canEdit } = useWorkspace();
+  const { canEdit } = useWorkspace();
   const { byId } = useSpaceStatuses(task.list_id);
   const openTask = useOpenTask();
   const status = task.status_id ? byId.get(task.status_id) : undefined;
@@ -94,10 +94,6 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
         {depth > 0 ? <CornerDownRightIcon className="size-3.5 shrink-0 text-ink-3" style={{ marginLeft: (depth - 1) * 20 }} /> : null}
 
         <CompleteCheck task={task} />
-
-        <span className="hidden shrink-0 tabular text-[11.5px] text-ink-3 sm:inline">
-          {workspace.task_prefix}-{task.number}
-        </span>
 
         <span className={cn("min-w-0 flex-1 truncate font-medium", done && "font-normal text-ink-3 line-through decoration-hairline-strong")}>{task.title}</span>
 

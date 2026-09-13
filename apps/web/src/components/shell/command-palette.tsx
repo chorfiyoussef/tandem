@@ -72,11 +72,8 @@ export function CommandPalette() {
             {results.map((t) => {
               const status = statuses?.find((s) => s.id === t.status_id);
               return (
-                <CommandItem key={t.id} value={`${t.title} ${workspace.task_prefix}-${t.number}`} onSelect={() => go(href(`/l/${t.list_id}?task=${t.id}`))}>
+                <CommandItem key={t.id} value={`${t.title} ${t.number}`} onSelect={() => go(href(`/l/${t.list_id}?task=${t.id}`))}>
                   <StatusDot color={status?.color} category={status?.category} />
-                  <span className="tabular text-ink-3">
-                    {workspace.task_prefix}-{t.number}
-                  </span>
                   <span className={cn("flex-1 truncate", t.completed_at && "text-ink-3 line-through")}>{t.title}</span>
                 </CommandItem>
               );

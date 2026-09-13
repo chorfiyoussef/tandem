@@ -15,18 +15,17 @@ export function GeneralSettings() {
   const { workspace, isAdmin, role } = useWorkspace();
   const router = useRouter();
   const [name, setName] = useState(workspace.name);
-  const [prefix, setPrefix] = useState(workspace.task_prefix);
   const [busy, setBusy] = useState(false);
   const [confirm, setConfirm] = useState("");
-  const dirty = name.trim() !== workspace.name || prefix !== workspace.task_prefix;
+  const dirty = name.trim() !== workspace.name;
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
     const supabase = createClient();
-    const { error } = await supabase.from("workspaces").update({ name: name.trim(), task_prefix: prefix.toUpperCase() }).eq("id", workspace.id);
+    const { error } = await supabase.from("workspaces").update({ name: name.trim() }).eq("id", workspace.id);
     setBusy(false);
-    if (error) return toast.error(error.message.includes("task_prefix") ? "Prefix must be 1–5 letters." : "Couldn't save changes.");
+    if (error) return toast.error("Couldn't save changes.");
     toast.success("Saved");
     router.refresh();
   }
@@ -48,19 +47,12 @@ export function GeneralSettings() {
             <Input id="ws-name" value={name} disabled={!isAdmin} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="ws-prefix">Task prefix</Label>
-            <Input id="ws-prefix" value={prefix} disabled={!isAdmin} maxLength={5} className="w-28 uppercase" onChange={(e) => setPrefix(e.target.value.toUpperCase().replace(/[^A-Z]/g, ""))} />
-            <p className="text-[12px] text-ink-3">
-              Tasks are numbered like <span className="tabular">{prefix || "T"}-42</span>.
-            </p>
-          </div>
-          <div className="flex flex-col gap-1.5">
             <Label>URL</Label>
             <p className="text-[13px] text-ink-2">/{workspace.slug}</p>
           </div>
           {isAdmin ? (
             <div>
-              <Button type="submit" disabled={!dirty || busy || !name.trim() || !prefix}>
+              <Button type="submit" disabled={!dirty || busy || !name.trim()}>
                 Save changes
               </Button>
             </div>

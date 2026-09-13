@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRightIcon, CopyIcon, EyeIcon, EyeOffIcon, LinkIcon, MoreHorizontalIcon, Trash2Icon, XIcon, ArrowUpLeftIcon } from "@/components/icons";
+import { ChevronRightIcon, EyeIcon, EyeOffIcon, LinkIcon, MoreHorizontalIcon, Trash2Icon, XIcon, ArrowUpLeftIcon } from "@/components/icons";
 import { toast } from "sonner";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -89,7 +89,6 @@ function TaskSheetBody({ task }: { task: TaskRow }) {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const list = lists?.find((l) => l.id === task.list_id);
   const space = spaces?.find((s) => s.id === list?.space_id);
-  const ref = `${workspace.task_prefix}-${task.number}`;
   const permalink = typeof window !== "undefined" ? `${window.location.origin}${href(`/t/${task.number}`)}` : "";
 
   const copy = async (text: string, what: string) => {
@@ -121,10 +120,6 @@ function TaskSheetBody({ task }: { task: TaskRow }) {
               </Link>
             </>
           ) : null}
-          <ChevronRightIcon className="size-3 shrink-0 text-ink-3" />
-          <button type="button" onClick={() => copy(ref, "Task ID")} className="tabular rounded px-1 py-0.5 hover:bg-muted hover:text-ink" title="Copy task ID">
-            {ref}
-          </button>
         </nav>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -143,9 +138,6 @@ function TaskSheetBody({ task }: { task: TaskRow }) {
           <DropdownMenuContent align="end" className="w-48">
             <DropdownMenuItem onSelect={() => copy(permalink, "Link")}>
               <LinkIcon /> Copy link
-            </DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => copy(ref, "Task ID")}>
-              <CopyIcon /> Copy ID
             </DropdownMenuItem>
             {canEdit ? (
               <>

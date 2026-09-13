@@ -83,9 +83,6 @@ export function InboxPage() {
                       <span className="block text-[13px] text-ink">{describe(n)}</span>
                       {n.tasks ? (
                         <span className="mt-0.5 block truncate text-[12px] text-ink-2">
-                          <span className="tabular text-ink-3">
-                            {workspace.task_prefix}-{n.tasks.number}
-                          </span>{" "}
                           {n.tasks.title}
                         </span>
                       ) : null}
