@@ -9,7 +9,7 @@ import { TagChip } from "./tag-chip";
 import { CategoryChip } from "./category-chip";
 import { DueLabel } from "./due-label";
 import { PriorityIcon } from "./priority-icon";
-import { asPastel } from "@/components/common/pastel";
+import { StatusDot } from "./status-dot";
 import { AssigneeLabel, AssigneePicker } from "./pickers/assignee-picker";
 import { DueDatePicker } from "./pickers/due-date-picker";
 import { PriorityPicker } from "./pickers/priority-picker";
@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 
 export type TaskRowProps = {
   task: TaskRowType;
-  /** Name the status on the card (for views that aren't grouped by status). */
+  /** Show the status pill (for views that aren't grouped by status). */
   showStatus?: boolean;
   /** Show which list the task belongs to (Home, search). */
   listName?: string;
@@ -55,7 +55,6 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
   const tags = task.task_tags.map((t) => t.tags).filter((t): t is NonNullable<typeof t> => !!t);
   const hasAssignees = task.task_assignees.length > 0;
   const recurrence = parseRecurrence(task.recurrence);
-  const tone = asPastel(status?.color);
 
   return (
     <div
@@ -68,17 +67,15 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
         if (e.key === "Enter" && e.target === e.currentTarget) openTask(task.id);
       }}
       className={cn(
-        "group/row relative flex flex-col gap-1 rounded-lg py-2 pl-1 pr-3 text-[13px] shadow-card outline-none transition-shadow",
-        status ? `pastel-fill-${tone}` : "bg-surface",
+        "group/row relative flex flex-col gap-1 rounded-lg bg-surface py-2 pl-1 pr-3 text-[13px] shadow-card outline-none transition-shadow",
         "hover:shadow-float focus-visible:ring-3 focus-visible:ring-ring/40",
         dragging && "opacity-30",
         overlay && "shadow-float",
         className,
       )}
       data-task-id={task.id}
-      data-tinted={status ? "" : undefined}
     >
-      {/* Line 1: check, number, title, status, priority */}
+      {/* Line 1: check, number, title, priority */}
       <div className="flex items-center gap-2">
         <div className="flex w-4 shrink-0 items-center justify-center self-stretch">
           {dragHandleProps && canEdit ? (
@@ -110,7 +107,8 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
             listId={task.list_id}
             disabled={!canEdit}
             trigger={
-              <button type="button" className={cn("flex h-5 shrink-0 items-center rounded-md px-1.5 text-[11px] font-medium hover:bg-surface/70", `pastel-text-${tone}`)} onClick={(e) => e.stopPropagation()}>
+              <button type="button" className={cn("flex h-5 shrink-0 items-center gap-1.5 rounded-md px-1.5 text-[11px] font-medium", `pastel-${status.color}`)} onClick={(e) => e.stopPropagation()}>
+                <StatusDot color={status.color} category={status.category} size={9} />
                 {status.name}
               </button>
             }
@@ -123,7 +121,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
           trigger={
             <button
               type="button"
-              className={cn("flex size-6 shrink-0 items-center justify-center rounded-md hover:bg-surface/70", task.priority === "none" && "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
+              className={cn("flex size-6 shrink-0 items-center justify-center rounded-md hover:bg-muted", task.priority === "none" && "opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
               onClick={(e) => e.stopPropagation()}
               aria-label="Set priority"
             >
@@ -180,7 +178,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
             trigger={
               <button
                 type="button"
-                className={cn("flex h-6 items-center gap-1 rounded-md px-1.5 hover:bg-surface/70", !task.due_date && "text-ink-3 opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
+                className={cn("flex h-6 items-center gap-1 rounded-md px-1.5 hover:bg-muted", !task.due_date && "text-ink-3 opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
                 onClick={(e) => e.stopPropagation()}
                 aria-label="Set due date"
               >
@@ -203,7 +201,7 @@ export const TaskRow = forwardRef<HTMLDivElement, TaskRowProps>(function TaskRow
             trigger={
               <button
                 type="button"
-                className={cn("flex h-6 min-w-0 max-w-44 items-center gap-1 rounded-md px-1.5 hover:bg-surface/70", !hasAssignees && "text-ink-3 opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
+                className={cn("flex h-6 min-w-0 max-w-44 items-center gap-1 rounded-md px-1.5 hover:bg-muted", !hasAssignees && "text-ink-3 opacity-0 group-hover/row:opacity-100 focus-visible:opacity-100")}
                 onClick={(e) => e.stopPropagation()}
                 aria-label="Assign"
               >

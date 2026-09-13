@@ -20,7 +20,7 @@ import { useMoveTask } from "@/lib/queries/tasks";
 import { useOpenTask } from "@/hooks/use-open-task";
 import { useUi } from "@/stores/ui";
 import { parseDate, toDateString } from "@/lib/dates";
-import { asPastel } from "@/components/common/pastel";
+import { StatusDot } from "./status-dot";
 import { Button } from "@/components/ui/button";
 import type { TaskRow as TaskRowType } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -165,14 +165,14 @@ function Chip({ task, listId, overlay, className }: { task: TaskRowType; listId:
       {...listeners}
       onClick={() => openTask(task.id)}
       className={cn(
-        "flex h-6 w-full min-w-0 items-center rounded-md px-1.5 text-left text-[12px] leading-none hover:shadow-card",
-        status ? `pastel-fill-${asPastel(status.color)}` : "bg-muted/70",
+        "flex h-6 w-full min-w-0 items-center gap-1.5 rounded-md bg-muted/70 px-1.5 text-left text-[12px] leading-none hover:bg-muted",
         task.completed_at && "text-ink-3 line-through",
         isDragging && "opacity-30",
-        overlay && "w-40 shadow-float",
+        overlay && "w-40 bg-surface shadow-float",
         className,
       )}
     >
+      <StatusDot color={status?.color} category={status?.category} size={10} />
       <span className="truncate">{task.title}</span>
     </button>
   );
